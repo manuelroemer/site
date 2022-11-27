@@ -1,0 +1,11 @@
+{
+  "private": "true",
+  "name": "blog",
+  "author": "Manuel Römer",
+  "scripts": {
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "prettier": "2.8.0"
+  }
+}
