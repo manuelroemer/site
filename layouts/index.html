@@ -4,13 +4,5 @@
   {{if .Title}}
   <h1>{{.Title | markdownify}}</h1>
   {{end}} {{.Content}}
-
-  <ul>
-    {{range .Pages}}
-    <li>
-      <a href="{{.Permalink}}">{{.Date.Format .Site.Params.dateFormat}} | {{.Title}}</a>
-    </li>
-    {{end}}
-  </ul>
 </main>
 {{end}}

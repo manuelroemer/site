@@ -1,8 +1,7 @@
 {{define "main"}} {{partial "header.html" .}}
 
 <main class="container">
-  {{if not .IsHome}}
   <h1>{{.Title | markdownify}}</h1>
-  {{end}} {{.Content}}
+  {{.Content}}
 </main>
 {{end}}

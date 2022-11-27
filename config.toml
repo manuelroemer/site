@@ -2,3 +2,6 @@ baseURL = "http://www.manuelroemer.com/"
 languageCode = "en"
 title = "Manu's Site"
 pluralizelisttitles = false
+
+[Params]
+  dateFormat = "2006-01-02"
