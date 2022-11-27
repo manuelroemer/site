@@ -5,9 +5,9 @@
     </li>
   </ul>
   <ul>
-    {{ range .Site.Sections }}
+    {{ range .Site.Menus.main }}
       <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <a href="{{ .URL }}">{{ .Name }}</a>
       </li>
     {{ end }}
   </ul>

@@ -1,8 +1,11 @@
 {{ define "main" }}
   {{ partial "header.html" . }}
 
+
   <main class="container">
-    <h1>{{ .Title | markdownify }}</h1>
+    {{ if .Title }}
+      <h1>{{ .Title | markdownify }}</h1>
+    {{ end }}
     {{ .Content }}
   </main>
 
