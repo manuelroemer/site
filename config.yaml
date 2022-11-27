@@ -1,0 +1,19 @@
+baseURL: "http://www.manuelroemer.com/"
+languageCode: "en"
+title: "Manu's Site"
+pluralizelisttitles: false
+
+Params:
+  socialGitHub: "https://github.com/manuelroemer"
+  socialLinkedIn: "https://www.linkedin.com/in/manuel-roemer"
+  dateFormat: "2006-01-02"
+  socialConnections:
+    - name: "GitHub"
+      link: "https://github.com/manuelroemer"
+      imgSrcLight: "/images/github-logo-light.png"
+      imgSrcDark: "/images/github-logo-dark.png"
+    - name: "LinkedIn"
+      link: "https://www.linkedin.com/in/manuel-roemer"
+      imgSrcLight: "/images/linkedin-logo-light.png"
+      imgSrcDark: "/images/linkedin-logo-dark.png"
+  copyright: "&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪."

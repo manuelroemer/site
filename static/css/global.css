@@ -1,4 +1,29 @@
-.center {
+:root {
+  /* The spacing steps are inspired by Carbon's spacing: https://carbondesignsystem.com/guidelines/spacing/overview/ */
+  --spacing-03: 0.5rem;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.flex {
   display: flex;
+}
+
+.justify-center {
   justify-content: center;
+}
+
+.gap-03 {
+  gap: var(--spacing-03);
+}
+
+.list-none {
+  list-style-type: none;
+}
+
+
+.text-center {
+  text-align: center;
 }

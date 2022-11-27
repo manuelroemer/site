@@ -1,19 +1,43 @@
 <hr />
-<footer class="container center">
-  {{ if .Site.Params.socialGitHub }}
-    <a href="{{ .Site.Params.socialGitHub }}" target="_blank">
-      <picture>
-        <source srcset="/images/github-logo-dark.png" media="(prefers-color-scheme: dark)" />
-        <img src="/images/github-logo-light.png" alt="GitHub Logo" width="32" height="32" />
-      </picture>
-    </a>
-  {{ end }}
-  {{ if .Site.Params.socialLinkedIn }}
-    <a href="{{ .Site.Params.socialLinkedIn }}" target="_blank">
-      <picture>
-        <source srcset="/images/linkedin-logo-dark.png" media="(prefers-color-scheme: dark)" />
-        <img src="/images/linkedin-logo-light.png" alt="GitHub Logo" width="32" height="32" />
-      </picture>
-    </a>
-  {{ end }}
+<footer class="container">
+  <section>
+    <p class="text-center">
+      <strong class="text-center" role="heading" aria-level="2">Connect with me</strong>
+    </p>
+    <ul class="flex justify-center gap-03 p-0">
+      {{ range $socialConnection := .Site.Params.socialConnections }}
+        <li class="list-none">
+          <a href="{{ $socialConnection.link }}" target="_blank">
+            <picture>
+              <source srcset="{{ $socialConnection.imgSrcDark }}" media="(prefers-color-scheme: dark)" />
+              <img
+                src="{{ $socialConnection.imgSrcLight }}"
+                alt="{{ $socialConnection.name }}"
+                width="32"
+                height="32" />
+            </picture>
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+
+  <section>
+    <p class="text-center">
+      <strong class="text-center" role="heading" aria-level="2">Legal</strong>
+    </p>
+    <ul class="flex justify-center gap-03 p-0">
+      {{ range $socialConnection := .Site.Params.socialConnections }}
+        <li class="list-none">
+          <a href="{{ $socialConnection.link }}" target="_blank">
+            {{ $socialConnection.name }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+
+  <section class="flex justify-center">
+    {{ .Site.Params.copyright | markdownify }}
+  </section>
 </footer>
