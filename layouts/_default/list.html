@@ -1,0 +1,16 @@
+{{ define "main" }}
+<main class="container">
+  {{ if .Title }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ end }} {{ .Content }}
+
+  <ul>
+    <!-- Ranges through content/posts/*.md -->
+    {{ range .Pages }}
+    <li>
+      <a href="{{.Permalink}}">{{.Date.Format "2006-01-02"}} | {{.Title}}</a>
+    </li>
+    {{ end }}
+  </ul>
+</main>
+{{ end }}
