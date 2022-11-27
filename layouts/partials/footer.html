@@ -1,0 +1,19 @@
+<hr />
+<footer class="container center">
+  {{ if .Site.Params.socialGitHub }}
+    <a href="{{ .Site.Params.socialGitHub }}" target="_blank">
+      <picture>
+        <source srcset="/images/github-logo-dark.png" media="(prefers-color-scheme: dark)" />
+        <img src="/images/github-logo-light.png" alt="GitHub Logo" width="32" height="32" />
+      </picture>
+    </a>
+  {{ end }}
+  {{ if .Site.Params.socialLinkedIn }}
+    <a href="{{ .Site.Params.socialLinkedIn }}" target="_blank">
+      <picture>
+        <source srcset="/images/linkedin-logo-dark.png" media="(prefers-color-scheme: dark)" />
+        <img src="/images/linkedin-logo-light.png" alt="GitHub Logo" width="32" height="32" />
+      </picture>
+    </a>
+  {{ end }}
+</footer>

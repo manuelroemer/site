@@ -4,4 +4,6 @@ title = "Manu's Site"
 pluralizelisttitles = false
 
 [Params]
+  socialGitHub = "https://github.com/manuelroemer"
+  socialLinkedIn = "https://www.linkedin.com/in/manuel-roemer"
   dateFormat = "2006-01-02"
