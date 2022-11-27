@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <title>{{.Title}} | {{.Site.Title}}</title>
 
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
 </head>
 <body>
-  {{ block "main" . }}
-  {{ end }}
+  {{block "main" .}}
+  {{end}}
 </body>
 </html>
 
-{{ `<!--
+{{`<!--
  ------
 | Purr |
  ------
@@ -22,4 +22,4 @@
  ___/ *       \__/ /
 {____  _________  |
      \_\        \_\
--->` | safeHTML }}
+-->` | safeHTML}}

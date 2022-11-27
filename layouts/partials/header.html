@@ -1,0 +1,14 @@
+<nav class="container">
+  <ul>
+    <li>
+      <strong><a href="/">{{.Site.Title}}</a></strong>
+    </li>
+  </ul>
+  <ul>
+    {{range .Site.Sections}}
+    <li>
+      <a href="{{.Permalink}}">{{.Title}}</a>
+    </li>
+    {{end}}
+  </ul>
+</nav>
