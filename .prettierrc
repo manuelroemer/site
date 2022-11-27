@@ -6,7 +6,6 @@
   "bracketSpacing": true,
   "semi": true,
   "bracketSameLine": true,
-  "htmlWhitespaceSensitivity": "strict",
   "overrides": [
     {
       "files": ["*.html"],
