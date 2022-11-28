@@ -1,5 +1,5 @@
-baseURL: "http://www.manuelroemer.com/"
-languageCode: "en"
+baseURL: 'http://www.manuelroemer.com/'
+languageCode: 'en'
 title: "Manu's Site"
 
 # Hugo's default title pluralization leads to weird titles. -> Disabled for now.
@@ -7,36 +7,36 @@ pluralizeListTitles: false
 
 # Auto-generate the page's main menu from sections.
 # If necessary later, this can be converted to a manually managed menu later.
-sectionPagesMenu: "main"
+sectionPagesMenu: 'main'
 
 menu:
   main:
-  - identifier: "blog"
-    name: "Blog"
-    url: "/blog"
+    - identifier: 'blog'
+      name: 'Blog'
+      url: '/blog'
   legal:
-  - identifier: "imprint"
-    name: "Impressum"
-    url: "/impressum"
-  - identifier: "privacyPolicy"
-    name: "Privacy Policy"
-    url: "/privacy"
+    - identifier: 'imprint'
+      name: 'Impressum'
+      url: '/impressum'
+    - identifier: 'privacyPolicy'
+      name: 'Privacy Policy'
+      url: '/privacy'
 
 Params:
   # The default date format.
-  dateFormat: "2006-01-02"
+  dateFormat: '2006-01-02'
 
   # The copyright notice to be shown in the footer.
-  copyright: "&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪."
+  copyright: '&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪.'
 
   # Social connections/links rendered in the footer.
   # These are rendered as images. Variants need to be provided for light and dark modes.
   socialConnections:
-    - name: "GitHub"
-      link: "https://github.com/manuelroemer"
-      imgSrcLight: "/images/github-logo-light.png"
-      imgSrcDark: "/images/github-logo-dark.png"
-    - name: "LinkedIn"
-      link: "https://www.linkedin.com/in/manuel-roemer"
-      imgSrcLight: "/images/linkedin-logo-light.png"
-      imgSrcDark: "/images/linkedin-logo-dark.png"
+    - name: 'GitHub'
+      link: 'https://github.com/manuelroemer'
+      imgSrcLight: '/images/github-logo-light.png'
+      imgSrcDark: '/images/github-logo-dark.png'
+    - name: 'LinkedIn'
+      link: 'https://www.linkedin.com/in/manuel-roemer'
+      imgSrcLight: '/images/linkedin-logo-light.png'
+      imgSrcDark: '/images/linkedin-logo-dark.png'
