@@ -10,10 +10,13 @@ pluralizeListTitles: false
 sectionPagesMenu: 'main'
 
 menu:
+  # The main menu contained in the page's navigation bar.
   main:
     - identifier: 'blog'
       name: 'Blog'
       url: '/blog'
+
+  # The "Legal" menu in the footer.
   legal:
     - identifier: 'imprint'
       name: 'Impressum'
@@ -34,9 +37,9 @@ Params:
   socialConnections:
     - name: 'GitHub'
       link: 'https://github.com/manuelroemer'
-      imgSrcLight: '/images/github-logo-light.png'
-      imgSrcDark: '/images/github-logo-dark.png'
+      imgSrcLight: 'images/github-logo-light.png'
+      imgSrcDark: 'images/github-logo-dark.png'
     - name: 'LinkedIn'
       link: 'https://www.linkedin.com/in/manuel-roemer'
-      imgSrcLight: '/images/linkedin-logo-light.png'
-      imgSrcDark: '/images/linkedin-logo-dark.png'
+      imgSrcLight: 'images/linkedin-logo-light.png'
+      imgSrcDark: 'images/linkedin-logo-dark.png'

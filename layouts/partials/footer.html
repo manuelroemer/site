@@ -9,9 +9,9 @@
         <li class="list-none">
           <a href="{{ $socialConnection.link }}" target="_blank">
             <picture>
-              <source srcset="{{ $socialConnection.imgSrcDark }}" media="(prefers-color-scheme: dark)" />
+              <source srcset="{{ $socialConnection.imgSrcDark | relURL }}" media="(prefers-color-scheme: dark)" />
               <img
-                src="{{ $socialConnection.imgSrcLight }}"
+                src="{{ $socialConnection.imgSrcLight | relURL }}"
                 alt="{{ $socialConnection.name }}"
                 width="32"
                 height="32"
@@ -43,6 +43,8 @@
   </section>
 
   <section class="flex justify-center">
-    {{ .Site.Params.copyright | markdownify }}
+    <small>
+      {{ .Site.Params.copyright | markdownify }}
+    </small>
   </section>
 </footer>
