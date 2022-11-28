@@ -27,12 +27,16 @@
       <strong>Legal</strong>
     </p>
     <ul class="flex justify-center gap-03 p-0">
-      {{ range $socialConnection := .Site.Params.socialConnections }}
+      {{ $legalMenuItemsLength := len .Site.Menus.legal }}
+      {{ range $index, $menuItem := .Site.Menus.legal }}
         <li class="list-none">
-          <a href="{{ $socialConnection.link }}" target="_blank">
-            {{ $socialConnection.name }}
+          <a href="{{ $menuItem.URL }}">
+            {{ $menuItem.Name }}
           </a>
         </li>
+        {{ if lt (add $index 1) $legalMenuItemsLength }}
+          <li class="list-none">&middot;</li>
+        {{ end }}
       {{ end }}
     </ul>
   </section>

@@ -9,6 +9,19 @@ pluralizeListTitles: false
 # If necessary later, this can be converted to a manually managed menu later.
 sectionPagesMenu: "main"
 
+menu:
+  main:
+  - identifier: "blog"
+    name: "Blog"
+    url: "/blog"
+  legal:
+  - identifier: "imprint"
+    name: "Impressum"
+    url: "/impressum"
+  - identifier: "privacyPolicy"
+    name: "Privacy Policy"
+    url: "/privacy"
+
 Params:
   # The default date format.
   dateFormat: "2006-01-02"
