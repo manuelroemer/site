@@ -6,7 +6,8 @@ title: "Manu's Site"
 pluralizeListTitles: false
 
 frontmatter:
-  # I want `date` and `publishDate` to have the same meaning.
+  # `date` and `publishDate` should have the same meaning.
+  # See the README for details.
   date:
     - date
     - publishDate
@@ -14,8 +15,9 @@ frontmatter:
     - date
     - publishDate
 
-  # I want `lastmod` to indicate an explicit edit/update.
+  # `lastmod` should indicate an explicit edit/update to a page.
   # A page should only appear as edited, if `lastmod` is explicitly set.
+  # See the README for details.
   lastmod: ['lastmod']
 
 menu:
@@ -35,6 +37,7 @@ menu:
       url: '/privacy'
 
 params:
+  # Shared formatting templates that are used in various locations.
   fmt:
     date: '02.01.2006'
     dateTime: '02.01.2006 15:04:05'
@@ -44,7 +47,8 @@ params:
   copyright: '&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪.'
 
   # Social connections/links rendered in the footer.
-  # These are rendered as images. Variants need to be provided for light and dark modes.
+  # Each social connection is rendered as an image.
+  # Image variants need to be provided for both a light and dark mode.
   socialConnections:
     - name: 'GitHub'
       link: 'https://github.com/manuelroemer'
