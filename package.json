@@ -3,7 +3,7 @@
   "name": "blog",
   "author": "Manuel Römer",
   "scripts": {
-    "start": "hugo server",
+    "start": "hugo server -D",
     "format": "prettier -w ."
   },
   "devDependencies": {
