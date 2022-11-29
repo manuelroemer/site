@@ -1,0 +1,4 @@
+<p>
+  <time datetime="{{ .Date.Format .Site.Params.fmt.dateISO }}"><small>{{ .Date.Format .Site.Params.fmt.date }}</small></time> |
+  <small>{{ .ReadingTime }} {{ if eq .ReadingTime 1 }} minute {{ else }} minutes {{ end }}</small>
+</p>

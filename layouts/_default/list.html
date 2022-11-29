@@ -9,14 +9,9 @@
 
     {{ .Content }}
 
-
-    <ul>
-      {{ range .Pages }}
-        <li>
-          <a href="{{ .Permalink }}">{{ .Date.Format .Site.Params.dateFormat }} | {{ .Title }}</a>
-        </li>
-      {{ end }}
-    </ul>
+    {{ range .Pages }}
+      {{ partial "pagesummary" . }}
+    {{ end }}
   </main>
 
   {{ partial "footer.html" . }}

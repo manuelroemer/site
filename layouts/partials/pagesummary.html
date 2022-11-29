@@ -1,0 +1,11 @@
+<article>
+  <hgroup>
+    <h2 class="overflow-hidden text-ellipsis whitespace-nowrap" title="{{ .Title }}">
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    </h2>
+
+    {{ partial "pagemeta" . }}
+  </hgroup>
+
+  <p>{{ .Summary }}</p>
+</article>
