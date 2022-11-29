@@ -5,9 +5,18 @@ title: "Manu's Site"
 # Hugo's default title pluralization leads to weird titles. -> Disabled for now.
 pluralizeListTitles: false
 
-# Auto-generate the page's main menu from sections.
-# If necessary later, this can be converted to a manually managed menu later.
-sectionPagesMenu: 'main'
+frontmatter:
+  # I want `date` and `publishDate` to have the same meaning.
+  date:
+    - date
+    - publishDate
+  publishDate:
+    - date
+    - publishDate
+
+  # I want `lastmod` to indicate an explicit edit/update.
+  # A page should only appear as edited, if `lastmod` is explicitly set.
+  lastmod: ['lastmod']
 
 menu:
   # The main menu contained in the page's navigation bar.
