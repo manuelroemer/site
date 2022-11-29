@@ -23,6 +23,10 @@ frontmatter:
 menu:
   # The main menu contained in the page's navigation bar.
   main:
+    - identifier: 'home'
+      name: 'Home'
+      url: '/'
+      weight: 1
     - identifier: 'blog'
       name: 'Blog'
       url: '/blog'
