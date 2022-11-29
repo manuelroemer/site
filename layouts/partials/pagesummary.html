@@ -7,5 +7,11 @@
     {{ partial "pagemeta" . }}
   </hgroup>
 
-  <p>{{ .Summary }}</p>
+  <p>
+    {{ if .Summary }}
+      {{ .Summary }}
+    {{ else }}
+      <i>No summary available.</i>
+    {{ end }}
+  </p>
 </article>
