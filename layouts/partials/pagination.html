@@ -1,0 +1,97 @@
+{{ if gt .TotalPages 1 }}
+  <!--
+  This pagination implementation fulfills the following requirements:
+  1. It shows a maxiumum of 5 pages, with the previous/next buttons on both sides, e.g., [<< < 2 3 (4) 5 6 > >>].
+  2. The current page is shown in the middle, if possible.
+     Therefore, the left and right sides show the previous/next 2 items.
+  3. If there aren't enough pages to the left/right, the other side will show more than 2 pages, e.g., [1 (2) 3 4 5].
+  4. If there are too few pages to completely fill up the pagination slots, the missing ones are ignored, e.g.,
+     [1 (2) 3].
+
+  The pagination is implemented via a window. A window has a size of (1 + SIZE_ON_EITHER_WINDOW_SIDE).
+  For example, given that there exists a page sequence from 1 - 10 and an active page of 4, the window would
+  be defined like this:
+
+  1  2  3  4  5  6  7  8  9  10
+     [           ]  <-- The window.
+     ^           ^
+     |           |_____ $windowEnd ("currentPage + windowSize")
+     |
+     $windowStart ("currentPage - windowSize")
+
+  If one side of the window overflows, the window should move so that it doesn't overflow anymore.
+  In the code below, this is done by calculating unused window slots, i.e. slots in the pagination
+  which are not filled with page numbers on one side and should therefore be used by the other side.
+  Conceptually, this is equivalent to the following:
+
+     1  2  3  4  5  6  7  8  9  10
+  [           ] <-- An overflowing window. Should be moved to the right.
+  ^
+  |__ One unused slot. By moving the window right, the slot is filled.
+
+
+     1  2  3  4  5  6  7  8  9  10
+     [           ] <-- Moved window.
+
+  In any case, the window's size is adjusted if there are not enough pages.
+
+  1  2  3
+  [     ] <-- If there are only 3 pages, the window shrinks.
+  -->
+
+  <!-- The size of either window size. -->
+  {{ $paginationWindowSize := 2 }}
+
+  <!-- The unadjusted start/end of the window. This window is already adjusted to not overflow, but
+       might not have the full size. -->
+  {{ $unadjustedWindowStart := math.Max 1 (sub .PageNumber $paginationWindowSize) }}
+  {{ $unadjustedWindowEnd := math.Min .TotalPages (add .PageNumber $paginationWindowSize) }}
+
+  <!-- Unused slots cause the window to move left or right. -->
+  {{ $unusedSlotsStart := sub $paginationWindowSize (sub .PageNumber $unadjustedWindowStart) }}
+  {{ $unusedSlotsEnd := sub $paginationWindowSize (sub $unadjustedWindowEnd .PageNumber) }}
+
+  <!-- The final start/end page of the window. Unused slots have been added on top. -->
+  {{ $windowStart := math.Max 1 (sub $unadjustedWindowStart $unusedSlotsEnd ) }}
+  {{ $windowEnd := math.Min .TotalPages (add $unadjustedWindowEnd $unusedSlotsStart ) }}
+
+
+  <nav class="flex justify-center">
+    <ul>
+      {{ if .HasPrev }}
+        <li title="Go to first page">
+          <a href="{{ .First.URL }}">«</a>
+        </li>
+
+        <li title="Go to previous page">
+          <a href="{{ .Prev.URL }}">‹</a>
+        </li>
+      {{ end }}
+
+      {{ range .Pagers }}
+        {{ if and (ge .PageNumber $windowStart) (le .PageNumber $windowEnd) }}
+          <li class="list-none" title="Go to page {{ .PageNumber }}">
+            <!-- if page = currentPage -->
+            {{ if eq . $ }}
+              <strong>
+                <a class="secondary" href="{{ .URL }}">{{ .PageNumber }}</a>
+              </strong>
+            {{ else }}
+              <a href="{{ .URL }}">{{ .PageNumber }}</a>
+            {{ end }}
+          </li>
+        {{ end }}
+      {{ end }}
+
+      {{ if .HasNext }}
+        <li title="Go to next page">
+          <a href="{{ .Next.URL }}">›</a>
+        </li>
+
+        <li title="Go to last page">
+          <a href="{{ .Last.URL }}">»</a>
+        </li>
+      {{ end }}
+    </ul>
+  </nav>
+{{ end }}
