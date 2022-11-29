@@ -4,7 +4,10 @@
 
   <main class="container">
     {{ if .Title }}
-      <h1>{{ .Title | markdownify }}</h1>
+      <hgroup>
+        <h1>{{ .Title | markdownify }}</h1>
+        {{ partial "pagemeta" . }}
+      </hgroup>
     {{ end }}
     {{ .Content }}
   </main>
