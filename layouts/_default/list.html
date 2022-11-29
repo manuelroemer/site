@@ -9,10 +9,12 @@
 
     {{ .Content }}
 
-    {{ range .Paginator.Pages }}
-      {{ partial "pagesummary" . }}
+    {{ if not .IsHome }}
+      {{ range .Paginator.Pages }}
+        {{ partial "pagesummary" . }}
+      {{ end }}
+      {{ partial "pagination.html" .Paginator }}
     {{ end }}
-    {{ partial "pagination.html" .Paginator }}
   </main>
 
   {{ partial "footer.html" . }}
