@@ -43,8 +43,8 @@ params:
     dateTime: '02.01.2006 15:04:05'
     dateISO: '2006-01-02T15:04:05-07:00'
 
-  # The copyright notice to be shown in the footer.
-  copyright: '&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪.'
+  # The owner of the website. Used, for example, by the copyright notice.
+  author: 'Manuel Römer'
 
   # Social connections/links rendered in the footer.
   # Each social connection is rendered as an image.

@@ -42,9 +42,7 @@
     </ul>
   </section>
 
-  <section class="flex justify-center">
-    <small>
-      {{ .Site.Params.copyright | markdownify }}
-    </small>
+  <section class="flex justify-center text-center">
+    <small>&copy; {{ now.Year }} {{ .Site.Params.author }}</small>
   </section>
 </footer>
