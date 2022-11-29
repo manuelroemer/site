@@ -38,7 +38,7 @@ configuration entry is used for (if it deviates from the default or obvious mean
 In the following, you can also find further descriptions of special configurations and/or
 semantics.
 
-### 📅 Dates
+### Dates
 
 Hugo provides various date variables which can be configured in a page's frontmatter.
 This website is configured to interpret and render dates with the following semantics:
