@@ -1,4 +1,9 @@
-<p>
-  <time datetime="{{ .Date.Format .Site.Params.fmt.dateISO }}"><small>{{ .Date.Format .Site.Params.fmt.date }}</small></time> |
-  <small>{{ .ReadingTime }} {{ if eq .ReadingTime 1 }} minute {{ else }} minutes {{ end }}</small>
+<p class="overflow-hidden text-ellipsis whitespace-nowrap">
+  <time datetime="{{ .Date.Format .Site.Params.fmt.dateISO }}" title="{{ .Date.Format .Site.Params.fmt.dateTime }}">
+    <small>{{ .Date.Format .Site.Params.fmt.date }}</small>
+  </time>
+
+  |
+
+  <small>{{ .ReadingTime }} {{ if eq .ReadingTime 1 }}minute{{ else }}minutes{{ end }} reading time</small>
 </p>
