@@ -31,9 +31,6 @@ params:
     dateTime: '02.01.2006 15:04:05'
     dateISO: '2006-01-02T15:04:05-07:00'
 
-  # The default date format.
-  dateFormat:
-
   # The copyright notice to be shown in the footer.
   copyright: '&copy; 2022 Manuel Römer. Made with ♥ in 🇩🇪.'
 
