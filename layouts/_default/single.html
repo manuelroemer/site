@@ -3,14 +3,8 @@
 
 
   <main class="container">
-    {{ if .Title }}
-      <hgroup>
-        <h1>{{ .Title | markdownify }}</h1>
-        {{ partial "pagemeta" . }}
-      </hgroup>
-    {{ end }}
+    {{ partial "title" . }}
     {{ .Content }}
-
     {{ partial "tags" . }}
   </main>
 

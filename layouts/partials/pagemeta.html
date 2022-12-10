@@ -1,3 +1,8 @@
+<!--
+Renders the metadata information for a given page.
+-->
+
+<!-- This partial is used inside `hgroup`. This should always be a `p`. -->
 <p class="overflow-hidden text-ellipsis whitespace-nowrap">
   <small>Published on</small>
   <time datetime="{{ .Date.Format .Site.Params.fmt.dateISO }}" title="{{ .Date.Format .Site.Params.fmt.dateTime }}">

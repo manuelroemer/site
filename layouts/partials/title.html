@@ -1,0 +1,18 @@
+<!--
+Renders the title of a page.
+
+For leaf pages, i.e. pages without nested pages, metadata about the page is shown
+below the title.
+For bundle pages, only the title is shown.
+-->
+
+{{ if .Title }}
+  {{ if eq .BundleType "leaf" }}
+    <hgroup>
+      <h1>{{ .Title | markdownify }}</h1>
+      {{ partial "pagemeta" . }}
+    </hgroup>
+  {{ else }}
+    <h1>{{ .Title | markdownify }}</h1>
+  {{ end }}
+{{ end }}

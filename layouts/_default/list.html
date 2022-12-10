@@ -3,9 +3,7 @@
 
 
   <main class="container">
-    {{ if .Title }}
-      <h1>{{ .Title | markdownify }}</h1>
-    {{ end }}
+    {{ partial "title" . }}
 
     {{ .Content }}
 
