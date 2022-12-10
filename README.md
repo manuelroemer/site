@@ -57,3 +57,13 @@ This website is configured to interpret and render dates with the following sema
 
 By default, Hugo provides the `tags` and `categories` taxonomies/page params.
 This website disables `categories`. Only `tags` are used.
+
+### Description and Summary
+
+Pages can have both a `description` and `summary`.  
+`summary` is, by default, generated automatically by Hugo, but can be set to a custom value
+if desired in a page's frontmatter. `summary` is used for, e.g., giving the user an overview
+of the page's content.  
+`description`, on the other hand, is not automatically generated.
+It is typically used for a page's `meta` tags (i.e. SEO/providing page metadata).
+If `description` is not set, `summary` is used as a fallback.
