@@ -71,3 +71,9 @@ params:
       link: 'https://www.linkedin.com/in/manuel-roemer'
       imgSrcLight: 'images/linkedin-logo-light.png'
       imgSrcDark: 'images/linkedin-logo-dark.png'
+
+# Preserve HTML comments on build.
+minify:
+  tdewolff:
+    html:
+      keepComments: true

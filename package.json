@@ -4,6 +4,7 @@
   "author": "Manuel Römer",
   "scripts": {
     "start": "hugo server -D",
+    "build": "hugo --minify",
     "format": "prettier -w ."
   },
   "devDependencies": {
