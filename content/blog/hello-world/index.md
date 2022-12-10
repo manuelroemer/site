@@ -4,7 +4,7 @@ lastmod: null
 title: 'Hello World!'
 description: null
 summary: null
-tags: ['blog']
+tags: [blog, haiku]
 ---
 
 > The first blog post here.  
