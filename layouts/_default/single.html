@@ -10,6 +10,8 @@
       </hgroup>
     {{ end }}
     {{ .Content }}
+
+    {{ partial "tags" . }}
   </main>
 
   {{ partial "footer.html" . }}

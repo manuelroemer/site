@@ -1,0 +1,9 @@
+{{ if .Page.Params.tags }}
+  <h5>Tags</h5>
+
+  <ul class="flex gap-03 p-0">
+    {{ range (.GetTerms "tags") }}
+      <li class="list-none"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+  </ul>
+{{ end }}
