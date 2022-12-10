@@ -1,0 +1,20 @@
+{{ define "main" }}
+  {{ partial "header.html" . }}
+
+
+  <main class="container">
+    {{ partial "title" . }}
+    {{ .Content }}
+
+
+    <ul>
+      {{ range .Data.Terms.Alphabetical }}
+        <li>
+          <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
+  </main>
+
+  {{ partial "footer.html" . }}
+{{ end }}
