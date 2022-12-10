@@ -20,6 +20,12 @@ frontmatter:
   # See the README for details.
   lastmod: ['lastmod']
 
+# The page only uses one taxononmy: Tags.
+# By default, Hugo also includes categories. This default taxonomy is removed
+# by this config entry.
+taxonomies:
+  tag: tags
+
 menu:
   # The main menu contained in the page's navigation bar.
   main:
