@@ -34,7 +34,7 @@ Renders the page's global footer.
     <ul class="flex justify-center gap-03 p-0">
       {{ $legalMenuItemsLength := len .Site.Menus.legal }}
       {{ range $index, $menuItem := .Site.Menus.legal }}
-        <li class="list-none">
+        <li class="list-none text-center">
           <a href="{{ $menuItem.URL }}">
             {{ $menuItem.Name }}
           </a>
