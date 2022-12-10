@@ -42,9 +42,15 @@ menu:
     - identifier: 'imprint'
       name: 'Impressum'
       url: '/impressum'
+      weight: 1
     - identifier: 'privacyPolicy'
       name: 'Privacy Policy'
       url: '/privacy'
+      weight: 2
+    - identifier: 'disclaimer'
+      name: 'Disclaimer'
+      url: '/disclaimer'
+      weight: 3
 
 params:
   # Shared formatting templates that are used in various locations.
