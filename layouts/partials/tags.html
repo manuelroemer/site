@@ -2,12 +2,15 @@
 Renders a "Tags" section, linking all the tags associated with the current page.
 -->
 
-{{ if .Page.Params.tags }}
+{{ $tags := .GetTerms "tags" }}
+{{ if $tags }}
   <h5>Tags</h5>
 
   <ul class="flex gap-03 p-0">
-    {{ range (.GetTerms "tags") }}
-      <li class="list-none"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{ range $tags }}
+      <li class="list-none">
+        <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+      </li>
     {{ end }}
   </ul>
 {{ end }}
