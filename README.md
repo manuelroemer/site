@@ -52,3 +52,8 @@ This website is configured to interpret and render dates with the following sema
   Setting this value generates an _"Edited on ..."_ message in the final UI.
   - ✔ **Do** set this date when a page receives a large overhaul or update.
   - ❌ **Do not** set this date when doing small fixes on a page (e.g. typos).
+
+### Tags/Categories
+
+By default, Hugo provides the `tags` and `categories` taxonomies/page params.
+This website disables `categories`. Only `tags` are used.
