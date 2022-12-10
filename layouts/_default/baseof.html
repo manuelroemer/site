@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>{{ if .Title }}{{ .Title }}&nbsp;|&nbsp;{{ end }}{{ .Site.Title }}</title>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="{{ .Site.Params.author }}" />
+    <meta name="copyright" content="{{ .Site.Params.author }}" />
+    <meta
+      name="description"
+      content="{{ if .Params.description }}
+        {{- .Params.description -}}
+      {{ else if .Summary }}
+        {{- .Summary -}}
+      {{ else if .Site.Params.Description }}
+        {{- .Site.Params.Description -}}
+      {{ end }}"
+    />
+    {{ if .Params.tags }}
+      <meta name="keywords" content="{{ delimit .Params.tags "," }}" />
+    {{ end }}
 
-    {{ range .AlternativeOutputFormats -}}
-      {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-    {{ end -}}
-
-
-    <title>{{ if .Title }}{{ .Title }}&nbsp;|&nbsp;{{ end }}{{ .Site.Title }}</title>
 
     <link rel="stylesheet" href="{{ "css/pico.min.css" | relURL }}" />
     <link rel="stylesheet" href="{{ "css/global.css" | relURL }}" />
+    {{ range .AlternativeOutputFormats }}
+      {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end }}
   </head>
   <body>
     {{ block "main" . }}

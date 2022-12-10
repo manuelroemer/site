@@ -56,6 +56,9 @@ params:
   # The owner of the website. Used, for example, by the copyright notice.
   author: 'Manuel Römer'
 
+  # A meta-description of the website. Used as a fallback if no page description is given.
+  description: 'The personal homepage of Manuel Römer.'
+
   # Social connections/links rendered in the footer.
   # Each social connection is rendered as an image.
   # Image variants need to be provided for both a light and dark mode.
