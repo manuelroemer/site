@@ -21,17 +21,16 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HUGO_VERSION: 0.108.0
     steps:
       - name: Install Node/NPM
         uses: actions/setup-node@v3
         with:
           node-version: current
       - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.108.0'
+          extended: true
       - name: Checkout
         uses: actions/checkout@v3
         with:
