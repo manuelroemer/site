@@ -10,7 +10,7 @@ Follow Hugo's [Getting Started guide](https://gohugo.io/getting-started/) for se
 locally.
 
 While not technically required to get the site running, the repository is using
-[NPM](https://www.npmjs.com/) for running tasks and for formatting the files in this repository.
+[NPM](https://www.npmjs.com/) for running tasks and for formatting.
 With NPM installed, you can install the repository's dependencies via:
 
 ```sh
