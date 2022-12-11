@@ -1,0 +1,6 @@
+{{ $href := .Get 0 }}
+{{ $rel := .Get 1 }}
+{{ $inner := .Get 2 }}
+
+
+<a href="{{ $href }}" rel="{{ $rel }}">{{ $inner }}</a>

@@ -166,4 +166,4 @@ These data are processed on the basis of Art. 6(1)(b) GDPR if your inquiry is re
 The data sent by you to us via contact requests remain with us until you request us to delete, revoke your consent to the storage or the purpose for the data storage lapses (e.g. after completion of your request). Mandatory statutory provisions - in particular statutory retention periods - remain unaffected.
 
 ## Source
-https://www.e-recht24.de
+{{< a "https://www.e-recht24.de" "nofollow" "https://www.e-recht24.de" >}}

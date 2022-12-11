@@ -30,7 +30,7 @@ Dieses Impressum gilt auch für die folgenden Social-Media-Präsenzen und Online
 * https://www.linkedin.com/in/manuel-roemer
 
 ### Quelle
-https://www.e-recht24.de
+{{< a "https://www.e-recht24.de" "nofollow" "https://www.e-recht24.de" >}}
 
 
 ## Site Notice
@@ -56,4 +56,4 @@ This site notice also applies to the following social media presences and online
 * https://www.linkedin.com/in/manuel-roemer
 
 ### Source
-https://www.e-recht24.de
+{{< a "https://www.e-recht24.de" "nofollow" "https://www.e-recht24.de" >}}
