@@ -1,38 +1,59 @@
 ---
-title: 'Impressum (Legal Notice)'
+date: 2022-12-21T00:00:00+01:00
+title: 'Impressum (Site Notice)'
 summary: null
-description: 'Impressum'
+description: 'Impressum (Site Notice)'
 ---
 
-## Diensteanbieter
+*Please scroll down for an English version.*
+
+## Impressum
+
+### Angaben gemäß § 5 TMG
+Manuel Römer  
+Apianweg, 14  
+85368 Moosburg an der Isar
+
+### Kontakt
+**Telefon:** 08761 724816  
+**E-Mail:** hello@manuelroemer.com
+
+### Redaktionell verantwortlich
 Manuel Römer  
 Apianweg 14  
-85368 Moosburg a. d. Isar  
+85368 Moosburg an der Isar  
 Deutschland
 
-## Kontaktmöglichkeiten
-**E-Mail-Adresse:** hello@manuelroemer.com  
-**Telefon:** 08761 724816
-
-## Journalistisch-redaktionelle Angebote
-**Inhaltlich verantwortlich:**  
-Manuel Römer  
-Apianweg 14  
-85368 Moosburg a. d. Isar  
-Deutschland
-
-## Audiovisuelle Mediendienste
-**Sitzland:** Deutschland  
-**Zuständige Regulierungs-, bzw. Aufsichtsbehörde:** Bayerische Landeszentrale für neue Medien (BLM), https://www.blm.de/
-
-## Social Media und andere Onlinepräsenzen
+### Social Media und andere Onlinepräsenzen
 Dieses Impressum gilt auch für die folgenden Social-Media-Präsenzen und Onlineprofile:
 * https://github.com/manuelroemer
 * https://www.linkedin.com/in/manuel-roemer
 
-## Haftungs- und Schutzrechtshinweise
+### Quelle
+https://www.e-recht24.de
 
-**Haftungsausschluss:**  
-Die Inhalte dieses Onlineangebotes wurden sorgfältig und nach unserem aktuellen Kenntnisstand erstellt, dienen jedoch nur der Information und entfalten keine rechtlich bindende Wirkung, sofern es sich nicht um gesetzlich verpflichtende Informationen (z.B. das Impressum, die Datenschutzerklärung, AGB oder verpflichtende Belehrungen von Verbrauchern) handelt. Wir behalten uns vor, die Inhalte vollständig oder teilweise zu ändern oder zu löschen, soweit vertragliche Verpflichtungen unberührt bleiben. Alle Angebote sind freibleibend und unverbindlich.
 
-[Erstellt mit kostenlosem Datenschutz-Generator.de von Dr. Thomas Schwenke](https://datenschutz-generator.de/)
+## Site Notice
+
+### Information pursuant to Sect. 5 German Telemedia Act (TMG)
+Manuel Römer  
+Apianweg, 14  
+85368 Moosburg an der Isar
+
+### Contact
+**Phone:** 08761 724816  
+**E-mail:** hello@manuelroemer.com
+
+### Person responsible for editorial
+Manuel Römer  
+Apianweg 14  
+85368 Moosburg an der Isar  
+Deutschland
+
+### Social media and other online presences
+This site notice also applies to the following social media presences and online profiles:
+* https://github.com/manuelroemer
+* https://www.linkedin.com/in/manuel-roemer
+
+### Source
+https://www.e-recht24.de
