@@ -3,7 +3,7 @@ date: 2022-12-13T15:43:05+01:00
 lastmod: null
 title: 'Wraps'
 description: null
-summary: null
+summary: 'Klassische Wraps für 5-6 Personen.'
 ---
 
 Klassische Wraps für 5-6 Personen.
