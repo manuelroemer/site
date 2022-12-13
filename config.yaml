@@ -36,6 +36,9 @@ menu:
     - identifier: 'blog'
       name: 'Blog'
       url: '/blog'
+    - identifier: 'recipes'
+      name: 'Recipes'
+      url: '/recipes'
 
   # The "Legal" menu in the footer.
   legal:
