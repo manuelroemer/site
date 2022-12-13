@@ -81,7 +81,7 @@ auch die Gemüsefüllung in einem Wrap).
    1. Das geschnittene Gemüse mit Pflanzenöl in einer Pfanne anbraten.
    2. Mit Salz, Pfeffer und Gewürzen abschmecken.
 7. Die Tortillawraps kurz im Ofen anwärmen, damit sie knusprig werden.
-6. Alle einzelnen Komponenten (Fleisch, Gemüse, Reis, ...) einzel /servieren (z.B. in Schüsseln).
+6. Alle Komponenten (Fleisch, Gemüse, Reis, ...) einzeln servieren (z.B. in Schüsseln).
 
 
 [^1]: Reissorte nach persönlicher Präferenz, z.B. Basmati- oder Langkornreis.
