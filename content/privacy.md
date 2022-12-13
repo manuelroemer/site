@@ -50,8 +50,8 @@ We are using the following host(s):
 GitHub Inc.  
 88 Colin P Kelly Jr St  
 San Francisco, CA 94107  
-United States  
-  
+United States
+
 GitHub Privacy Statement/Contact:  
 https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement
 
@@ -113,10 +113,10 @@ Within the scope of the applicable statutory provisions, you have the right to a
 
 You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time. The right to demand restriction of processing applies in the following cases:
 
-* In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
-* If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
-* If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
-* If you have raised an objection pursuant to Art. 21(1) GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
+- In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
+- If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
+- If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
+- If you have raised an objection pursuant to Art. 21(1) GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
 
 If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
 
@@ -146,12 +146,12 @@ In the event that third-party cookies are used or if cookies are used for analyt
 
 The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
 
-* The type and version of browser used
-* The used operating system
-* Referrer URL
-* The hostname of the accessing computer
-* The time of the server inquiry
-* The IP address
+- The type and version of browser used
+- The used operating system
+- Referrer URL
+- The hostname of the accessing computer
+- The time of the server inquiry
+- The IP address
 
 This data is not merged with other data sources.
 
@@ -166,4 +166,5 @@ These data are processed on the basis of Art. 6(1)(b) GDPR if your inquiry is re
 The data sent by you to us via contact requests remain with us until you request us to delete, revoke your consent to the storage or the purpose for the data storage lapses (e.g. after completion of your request). Mandatory statutory provisions - in particular statutory retention periods - remain unaffected.
 
 ## Source
+
 {{< a "https://www.e-recht24.de" "nofollow" "https://www.e-recht24.de" >}}

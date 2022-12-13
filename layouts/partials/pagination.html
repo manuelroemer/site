@@ -47,14 +47,17 @@ to navigate between the paginated list items.
   <!-- The size of either window size. -->
   {{ $paginationWindowSize := 2 }}
 
+
   <!-- The unadjusted start/end of the window. This window is already adjusted to not overflow, but
        might not have the full size. -->
   {{ $unadjustedWindowStart := math.Max 1 (sub .PageNumber $paginationWindowSize) }}
   {{ $unadjustedWindowEnd := math.Min .TotalPages (add .PageNumber $paginationWindowSize) }}
 
+
   <!-- Unused slots cause the window to move left or right. -->
   {{ $unusedSlotsStart := sub $paginationWindowSize (sub .PageNumber $unadjustedWindowStart) }}
   {{ $unusedSlotsEnd := sub $paginationWindowSize (sub $unadjustedWindowEnd .PageNumber) }}
+
 
   <!-- The final start/end page of the window. Unused slots have been added on top. -->
   {{ $windowStart := math.Max 1 (sub $unadjustedWindowStart $unusedSlotsEnd ) }}
