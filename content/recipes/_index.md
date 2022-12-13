@@ -1,7 +1,6 @@
 ---
 title: 'Recipes'
 description: 'A collection of recipes that I like cooking.'
-aliases: ['/rezepte/']
 ---
 
 I don't know whether I like cooking or just eating the resulting food.
