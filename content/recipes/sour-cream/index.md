@@ -1,12 +1,12 @@
 ---
 date: 2022-12-13T16:27:09+01:00
 lastmod: null
-title: 'Sour Creme'
+title: 'Sour Cream'
 description: null
-summary: 'Eine einfache Sour Creme, ideal als Beilage oder Dip für andere Gerichte.'
+summary: 'Eine einfache Sour Cream, ideal als Beilage oder Dip für andere Gerichte.'
 ---
 
-Eine einfache Sour Creme, ideal als Beilage oder Dip für andere Gerichte.
+Eine einfache Sour Cream, ideal als Beilage oder Dip für andere Gerichte.
 
 ## Zutaten
 

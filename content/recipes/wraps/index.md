@@ -62,7 +62,7 @@ auch die Gemüsefüllung in einem Wrap).
 ### Soßen
 
 - Taco Soße im Glas
-- Selbstgemachte [Sour Creme](../sour-creme)
+- Selbstgemachte [Sour Cream](../sour-cream)
 - Selbstgemachte [Guacamole](../guacamole)
 
 ## Zubereitung
