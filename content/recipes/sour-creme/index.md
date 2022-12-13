@@ -24,4 +24,4 @@ Eine einfache Sour Creme, ideal als Beilage oder Dip für andere Gerichte.
 3. Knoblauch hinzufügen.
 4. Salz und Pfeffer hinzufügen. Menge abschmecken.
 5. *Optional:* Zitronensaft und Kräuter hinzugeben
-6. Verrühren abschmecken.
+6. Verrühren und abschmecken.
