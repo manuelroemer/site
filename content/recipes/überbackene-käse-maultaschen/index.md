@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2022-12-15T15:39:33+01:00
 lastmod: null
 title: "Überbackene Käse Maultaschen"
