@@ -1,6 +1,7 @@
 baseURL: 'https://www.manuelroemer.com/'
 languageCode: 'en'
 title: "Manu's Site"
+enableRobotsTXT: true
 
 # Hugo's default title pluralization leads to weird titles. -> Disabled for now.
 pluralizeListTitles: false
