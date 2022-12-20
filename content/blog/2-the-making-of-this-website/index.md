@@ -23,7 +23,7 @@ Besides, I could never really decide on what purpose I wanted my hypothetical we
 Do I want to build a flashy portfolio? Do I want to create a blog? Do I want to have
 a minimal site for showing personal information?
 This decision-to-be-made lingered in the back of my ToDo list for about a year until a few weeks
-ago, when I was motivated by a random comment on [HN](https://news.ycombinator.com) about how easy it
+ago, when I read a random comment on [HN](https://news.ycombinator.com) about how easy it
 is to build and maintain your own blog.
 Newly motivated by this comment, I decided to finally tackle this task and created a mental list of
 goals and non-goals that I wanted my website-to-be to fulfill:
