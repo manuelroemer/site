@@ -22,13 +22,13 @@ Die Menge varriiert je nach Beilage, Personenanzahl und Geschmack.
 - Knoblauchzehen
 - Rosmarin
 - Thymian
-- Chimmichurri
+- Chimichurri
 - Fleur de Sel
 
 ## Zubereitung
 
 1. Die Kartoffeln (wenn gewählt) vorkochen.
 2. Das Gemüse in kleine Stücke schneiden.
-3. Auf einem geölten Blech (ohne Backpapier) bei 180°C ~30-40 Minuten in den Ofen.
+3. Alles auf einem geölten Blech (ohne Backpapier) bei 180°C ~30-40 Minuten in den Ofen.
 
 Als Beilage/Dip eignen sich Tsatsiki und viele Fleischgerichte.
