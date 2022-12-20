@@ -20,7 +20,7 @@ Vegetarisches Curry mit Kichererbsen und Kokos-/Tomatengeschmack.
 - 2 Dosen Tomaten stückig
 - 2 Dosen Kokosmilch
 - 3 Dosen Kichererbsen
-- 1-2 EL Garam mMasala
+- 1-2 EL Garam Masala
 - 1-2 EL Harissa
 - Salz
 - Pfeffer
