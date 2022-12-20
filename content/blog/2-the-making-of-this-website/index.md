@@ -2,7 +2,7 @@
 draft: true
 date: 2022-12-20T14:43:58+01:00
 lastmod: null
-title: "The Making of This Website"
+title: 'The Making of This Website'
 description: null
 summary: null
 tags: [blog, hugo, pico]
@@ -29,15 +29,17 @@ Newly motivated by this comment, I decided to finally tackle this task and creat
 goals and non-goals that I wanted my website-to-be to fulfill:
 
 **Goals:**
-- ❗️ It *must* be as **cheap** as possible (#student-budget)
-- ❗️ It *must* be as simple as possible to **maintain** the page, ideally for a **long time**
-- ❗️ It *must* be possible to **set** the **initial** website **up** in a relatively **short timeframe**
-- ❕ It *should* be possible to create "content-pages" (e.g. for a blog) and "normal HTML-based pages" 
-     (e.g. for the homepage)
-- ❔ It would be *nice* to be able to write **content** in a markup language like **Markdown** or **AsciiDoc**
-- ❔ It would be *nice* to be able to use **Git** for **content management**
+
+- ❗️ It _must_ be as **cheap** as possible (#student-budget)
+- ❗️ It _must_ be as simple as possible to **maintain** the page, ideally for a **long time**
+- ❗️ It _must_ be possible to **set** the **initial** website **up** in a relatively **short timeframe**
+- ❕ It _should_ be possible to create "content-pages" (e.g. for a blog) and "normal HTML-based pages"
+  (e.g. for the homepage)
+- ❔ It would be _nice_ to be able to write **content** in a markup language like **Markdown** or **AsciiDoc**
+- ❔ It would be _nice_ to be able to use **Git** for **content management**
 
 **Non-Goals:**
+
 - ❌ It _does not_ need a fully-fledged CMS
 - ❌ It _does not_ need interactivity (e.g. comment-boxes) and/or account management
 - ❌ It _does not_ need a flashy, custom design **in the first version**
