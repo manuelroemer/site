@@ -37,6 +37,11 @@ goals and non-goals that I wanted my website-to-be to fulfill:
 - ❔ It would be *nice* to be able to write **content** in a markup language like **Markdown** or **AsciiDoc**
 - ❔ It would be *nice* to be able to use **Git** for **content management**
 
+**Non-Goals:**
+- ❌ It _does not_ need a fully-fledged CMS
+- ❌ It _does not_ need interactivity (e.g. comment-boxes) and/or account management
+- ❌ It _does not_ need a flashy, custom design **in the first version**
+
 ## Choosing The Technology
 
 ### Hugo
