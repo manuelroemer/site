@@ -20,7 +20,7 @@ Initially, I only bought it for having a custom E-Mail address.
 I already considered building a website back then, but it was a plan that kept being pushed back
 in favor of other tasks or simply normal life.
 Besides, I could never really decide on what purpose I wanted my hypothetical website to _achieve_.
-Do I want to build a flashy portfolio? Do I want to want to create a blog? Do I want to just have
+Do I want to build a flashy portfolio? Do I want to create a blog? Do I want to just have
 a minimal site for showing personal information?
 This decision also has a direct influence on the technology used.
 For a portfolio, I'd choose a different "stack" than for a blog.
