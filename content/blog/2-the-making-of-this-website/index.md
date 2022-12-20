@@ -22,7 +22,7 @@ in favor of other tasks or simply normal life.
 Besides, I could never really decide on what purpose I wanted my hypothetical website to _achieve_.
 Do I want to build a flashy portfolio? Do I want to create a blog? Do I want to just have
 a minimal site for showing personal information?
-This decision also has a direct influence on the technology used.
+This decision also has a direct influence on the technology.
 For a portfolio, I'd choose a different "stack" than for a blog.
 This decision to be made lingered in the back of my ToDo list for about a year until a few weeks
 ago, when I was motivated by a comment on [HN](https://news.ycombinator.com) about how easy it
