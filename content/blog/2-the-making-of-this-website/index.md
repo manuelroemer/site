@@ -47,6 +47,8 @@ goals and non-goals that I wanted my website-to-be to fulfill:
 
 ### GitHub Pages
 
+### NPM and Prettier
+
 ## Building The Website
 
 ## Deploying The Website
