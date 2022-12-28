@@ -34,7 +34,7 @@ Vegetarisches Curry mit Kichererbsen und Kokos-/Tomatengeschmack.
 1. Reis kochen.
 2. Schalotten/Zwiebeln anbraten.
 3. Knoblauch, Chili und Ingwer dazugeben und kurz braten.
-4. Curry, Harissa und Garam Masala dazugeben und anrösten.
+4. Tomatenmark, Curry, Harissa und Garam Masala dazugeben und anrösten.
 5. Kokosmilch dazugeben und aufkochen.
 6. Tomaten dazugeben.
 7. Gewürze (Salz, Pfeffer, brauner Zucker, Zitronensaft, Essig) dazugeben und abschmecken.
