@@ -59,11 +59,12 @@ in various online forums: Hugo.
 ### Hugo
 
 [Hugo](https://gohugo.io) is an established solution for a lot of blogs.
-It is a static site generator focused on performance.
-From my perspective, Hugo is fantastic for unopinionated DIY projects:
-When you setup a new Hugo project and run it, you see... absolutely nothing in the browser.
-By default, Hugo doesn't even come with a theme installed.
-It basically forces you to either find a premade theme or build your own one.
+It is often advertised as a static site generator with a huge focus on performance.
+In addition, Hugo is, from my own experience, fantastic for unopinionated DIY projects.
+This became apparent to me when I initially followed the "Getting Started" guide, set up a new Hugo
+project, ran it and saw... absolutely nothing in the browser.
+By default, Hugo doesn't even come with a theme installed. It doesn't do a lot of hand-holding and
+basically forces you to either find a premade theme or build your own one.
 
 I myself was determined to go with the second route.
 Using an off the shelf theme would work, but I wouldn't learn anything about Hugo by using one
@@ -114,7 +115,7 @@ However, there is one thing that I don't want to live without anymore when worki
 In the web space, Prettier has become my go-to formatter of choice and, if possible, I wanted to have
 it integrated into the repository.
 It turns out that it *is* possible.
-The only requirement for it to work with Hugo's templating engine is a plugin:
+The only requirement for it to work with Hugo's templating format is a plugin:
 [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
 
 Using prettier (and the plugin) implicitly adds one additional dependency though: NPM.
