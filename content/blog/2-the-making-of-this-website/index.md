@@ -50,7 +50,7 @@ Driven by the above points, I went on a market research regarding which technolo
 One thing became clear very quickly:
 There are very many options out there for building your own website/blog.
 Too many, in fact.
-In a certain sense, it felt overwhelming.
+In a certain way, it felt overwhelming.
 From toolbox-like frameworks to plug-and-play solutions, from Astro to Wordpress, there are a lot options
 which all have their respective pros and cons which would have to be evaluated.
 In the end, I decided to short-circuit the process by choosing an application that was often recommended
@@ -60,11 +60,12 @@ in various online forums: Hugo.
 
 [Hugo](https://gohugo.io) is an established solution for a lot of blogs.
 It is often advertised as a static site generator with a huge focus on performance.
-In addition, Hugo is, from my own experience, fantastic for unopinionated DIY projects.
-This became apparent to me when I initially followed the "Getting Started" guide, set up a new Hugo
+From my own experience, it is fantastic for unopinionated DIY projects because it pushes you towards
+coding things yourself.
+This became apparent to me when I followed the "Getting Started" guide, set up a new Hugo
 project, ran it and saw... absolutely nothing in the browser.
-By default, Hugo doesn't even come with a theme installed. It doesn't do a lot of hand-holding and
-basically forces you to either find a premade theme or build your own one.
+In contrast to other products, Hugo doesn't even come with a theme installed.
+It doesn't do a lot of hand-holding and basically forces you to either find a premade theme or build your own one.
 
 I myself was determined to go with the second route.
 Using an off the shelf theme would work, but I wouldn't learn anything about Hugo by using one
@@ -76,8 +77,8 @@ It will be my very own website.
 
 ### Pico.css
 
-The problem with building your own website is that a website, typically, needs some kind of design
-and while I do consider myself good at *judging* designs, I did not at all feel motivated to come
+The problem with building your own website is that a website, typically, needs some kind of design.
+And while I do consider myself good at *judging* designs, I did not at all feel motivated to come
 up with my own one for this project.
 I also knew that I would already have to spend a big amount of my available time on learning Hugo
 in order to quickly come up with a good result.
@@ -139,6 +140,53 @@ considering my goal #1.
 
 ## Building The Website
 
+Finally, everything was settled. I had a plan. I could get started.
+I set the project up (three times in fact - the first two attempts were thrown away because I headed into
+directions that I didn't like, e.g. by trying to build on a barebones template).
+And, as the [Git commit history shows](https://github.com/manuelroemer/site/commits/main?after=1b0966e4f3b4f3e09ea03449b9b7fb78fe5c3508+69&branch=main&qualified_name=refs%2Fheads%2Fmain),
+I was, more or less, following the "learning by doing approach", reading up on and trying to implement
+Hugo features one by one.
+
+What amazed me was how quickly you get into Hugo.
+I'd fully agree with someone claiming that Hugo's documentation might look intimidating on first glance
+due to its sheer size.
+But with a focused approach, i.e. giving myself small tasks like "Display Markdown Content", "Render a Page's
+Summary" or "Create a Configurable Menu", it became easy enough to digest Hugo's features piece by piece.
+Something else that helped me was looking into how other people used Hugo.
+Repositories like [hugo-xmin](https://github.com/yihui/hugo-xmin) were very helpful in the beginning
+because they were small and yet feature-rich enough to give an overview about the underlying concepts
+that Hugo uses.
+
+In the end, I was able to build v1 of this website relatively quickly.
+And it does leverage some cool features: Different layouts for different list pages,
+configurable menus (including images with light/dark mode support),
+a [custom pagination component](https://github.com/manuelroemer/site/blob/1b0966e4f3b4f3e09ea03449b9b7fb78fe5c3508/layouts/partials/pagination.html), etc.
+I consider this to be more than enough for a deployable MVP.
+
 ## Deploying The Website
+
+With the first deployable version being done, only the very last step remained:
+Getting the site running in the wild world of the internet.
+I already decided on where to host it: GitHub Pages.
+Building a custom pipeline which deploys the changes was the last remaining step to make the site
+accessible from other machines.
+Creating the GitHub Action was simple enough.
+All it took was copying a [template from GitHub](https://github.com/actions/starter-workflows/blob/d487ef2f8b08bf9da60462283a819d34c0c3bf34/pages/hugo.yml)
+and doing some small modifications (like using my custom NPM build script).
+I also had to change how the Hugo binary is installed (at that point in time, the script in GitHub's template didn't work).
+Here, I simply used the [peaceiris/actions-hugo@v2](https://github.com/peaceiris/actions-hugo)
+action which was recommended in the Hugo docs.
+
+And that was it - once the pipeline successfully ran, the page was finally accessible!
+It was a joyful moment.
+
+The last remaining issue was that the site could only be reached via GitHub Page's default URL, i.e.
+`manuelroemer.github.io/site`, in my case.
+Naturally, I wanted to use my custom domain here.
+To do so, I read through [GitHub's documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+multiple times, just to make sure that I didn't mess anything up by chance.
+At the end of the day, the required steps were relatively simple though.
+I also used the chance to globally [verify the domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages)
+with GitHub to prevent any accidential takeovers (even though the chance of this happening is probably 0%, but who knows...).
 
 ## Outlook and Conclusion
