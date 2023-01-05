@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2022-12-20T14:43:58+01:00
 lastmod: null
 title: 'The Making of This Website'
@@ -189,4 +188,27 @@ At the end of the day, the required steps were relatively simple though.
 I also used the chance to globally [verify the domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages)
 with GitHub to prevent any accidential takeovers (even though the chance of this happening is probably 0%, but who knows...).
 
+And that was it - the website was fully live on the right domain.
+
 ## Outlook and Conclusion
+
+I think that overall, the resulting v1 of my website fulfilled all of my self-imposed goals.
+It is cheap, it was built relatively quickly, and it will certainly be easy to maintain due
+to the absence of major dependencies (apart, of course, from Hugo itself).
+
+As it can be seen from this post, it is totally possible for me to write blog posts (I will only
+have to *actually* do it) and other content like my [favorite recipes](https://manuelroemer.com/recipes/)
+(only available in german for now 😞).
+
+With that being said, there is still a lot that can be done.
+At some point in the future.
+Hopefully.
+For one, I *would* like to create a custom design for this site.
+Pico is a good choice for now, but in the long run, it is a framework that I'd like to see replaced
+with a custom solution.
+There are also a lot of smaller things that I would like change - starting with a more appealing
+home page to a better organization of my recipes page...
+There are a lot of potential tasks which I can spend my free time on if or when I feel the desire to.
+
+In the meantime, I do hope that I will, at least semi-regularly, write one or the other blog post.
+Let's see whether that, or any other update to the site, will actually happen.
