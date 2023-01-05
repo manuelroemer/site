@@ -93,13 +93,48 @@ While I do believe that this approach will not work out well for "larger" sites,
 choice for this one for the following reasons:
 
 * It allows to me to have a good-looking design without putting in any effort.
-* Not having to apply any CSS classes in the code means that, if I later want to swap to another
+* Not having to apply any CSS classes in the code means that, if I later want to use another
   design, I won't have to do a lot of cleanup. Removing the stylesheet will be enough.
 * In order to correctly style the site, I must use semantic HTML (which is always a good thing).
 
-### GitHub Pages
+One thing to note is that, while Pico does a lot of heavy lifting, I still had to write
+[custom CSS](https://github.com/manuelroemer/site/blob/550b5354aae683f39b84f76a0f7bbe99a8b0f42c/static/css/global.css)
+in the end, mainly for aligning elements.
+By using atomic CSS and thus by combining the different rules in HTML, I could minimize
+the CSS to be written though.
 
 ### NPM and Prettier
+
+The above two technologies, Hugo and Pico.css, already allow for the creation of a fully-fledged
+website.
+And in the spirit of my goals above, I am very hesitant about adding more technologies and dependencies
+than absolutely required.
+After all, having more dependencies typically implies more maintenance - a non-goal, for this website.
+However, there is one thing that I don't want to live without anymore when working with code: Formatters.
+In the web space, Prettier has become my go-to formatter of choice and, if possible, I wanted to have
+it integrated into the repository.
+It turns out that it *is* possible.
+The only requirement for it to work with Hugo's templating engine is a plugin:
+[prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
+
+Using prettier (and the plugin) implicitly adds one additional dependency though: NPM.
+In my eyes, that actually brings an advantage:
+By having NPM set up in your repository, you automatically gain a simple task runner for free via
+the `scripts` section in the `package.json` file.
+I used that opportunity and placed common commands like starting the dev server or formatting
+the repository in my [`package.json` file](https://github.com/manuelroemer/site/blob/550b5354aae683f39b84f76a0f7bbe99a8b0f42c/package.json).
+
+### GitHub Pages
+
+At this point, everything required for building the website was decided.
+There was only one point missing: Where and how do I deploy the website once it is done?
+
+This was, by far, the simplest decision:
+Since Hugo is a static site generator, any static site hoster would work.
+Considering that I was already using GitHub for the repository (and thus also GitHub actions for building it),
+using GitHub pages for hosting the artifacts seemed like the obvious choice.
+The best part about GitHub pages is that it is entirely free - an appealing price tag, especially when
+considering my goal #1.
 
 ## Building The Website
 
