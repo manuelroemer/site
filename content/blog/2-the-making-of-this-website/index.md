@@ -58,9 +58,44 @@ in various online forums: Hugo.
 
 ### Hugo
 
-Hugo seems to be an established solution for a lot of blogs.
+[Hugo](https://gohugo.io) is an established solution for a lot of blogs.
+It is a static site generator focused on performance.
+From my perspective, Hugo is fantastic for unopinionated DIY projects:
+When you setup a new Hugo project and run it, you see... absolutely nothing in the browser.
+By default, Hugo doesn't even come with a theme installed.
+It basically forces you to either find a premade theme or build your own one.
+
+I myself was determined to go with the second route.
+Using an off the shelf theme would work, but I wouldn't learn anything about Hugo by using one
+(and I wanted to learn how Hugo works!).
+In addition, having a custom theme means that, while it is certainly more work, you do have more
+control over it.
+I will be responsible for maintaining it, but I can granularly control what does and what doesn't show up.
+It will be my very own website.
 
 ### Pico.css
+
+The problem with building your own website is that a website, typically, needs some kind of design
+and while I do consider myself good at *judging* designs, I did not at all feel motivated to come
+up with my own one for this project.
+I also knew that I would already have to spend a big amount of my available time on learning Hugo
+in order to quickly come up with a good result.
+Creating a good looking design in parallel was basically not even an option to consider.
+No, I needed a CSS library which does the heavy lifting.
+
+After evaluating a few options, I decided on [Pico.css](https://picocss.com) which describes itself
+as a "minimal CSS Framework for semantic HTML".
+Indeed, the coolest aspect of Pico is that, as long as you use its intended semantic HTML tags,
+you don't need to worry about CSS at all.
+There are, apart from a few exceptions, no CSS classes.
+Each HTML tag has a default style - and that is it.
+While I do believe that this approach will not work out well for "larger" sites, it is a very good
+choice for this one for the following reasons:
+
+* It allows to me to have a good-looking design without putting in any effort.
+* Not having to apply any CSS classes in the code means that, if I later want to swap to another
+  design, I won't have to do a lot of cleanup. Removing the stylesheet will be enough.
+* In order to correctly style the site, I must use semantic HTML (which is always a good thing).
 
 ### GitHub Pages
 
