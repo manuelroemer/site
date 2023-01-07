@@ -22,7 +22,7 @@ The reason was simply that I have felt the need to reset my PC for quite a while
 Resetting presented me with the choice to either continue using Windows 10 or, finally,
 migrate to a fresh installation of Windows 11.
 I decided to go with 11.
-The pros definitely outweighed the cons, in my eyes.
+The pros definitely outweighed the cons, in my eyes (I mean, hey, the new explorer finally has native tabs!).
 I made a backup of all my files, made the upgrade from 10 to 11 and then, on Windows 11, started
 a full reset of my PC.
 
@@ -42,7 +42,7 @@ But there is one thing that _I absolutely don't want to do_:
 Sign in to my Microsoft account _during the initial Windows setup_.
 The reason is simple:
 If you use a Microsoft account at this point in time, Windows will automatically name your
-Windows user account using a 5 character long name derived from your Microsoft account's settings.
+Windows user account using a 5-character long name derived from your Microsoft account's settings.
 I don't want this to happen.
 I want to keep using my old and trusted account name.
 This is important to me because the name is used for your user folder (`C:/Users/THE_NAME`).
@@ -59,7 +59,7 @@ You were simply asked to reconnect and finish the setup later.
 
 This is, frankly spoken, an incredibly user-hostile process which will hopefully be improved in the future
 (one can hope, right?).
-The only thing helped me in the end was a [comment on a forum](https://superuser.com/q/1744963)
+The only thing that helped me in the end was a [comment on a forum](https://superuser.com/q/1744963)
 that described the following steps which enable you to hack around this default setup flow:
 
 1. Follow the setup until you are asked to connect to a network.
@@ -80,7 +80,7 @@ do this yourself too, especially in the area of privacy.
 There are quite a few settings which you can, and probably should, change, depending on your preferences.
 
 One thing that I did tweak (as much as I was allowed to) was, you guessed it, the taskbar.
-I just prefer having the hot corner on the bottom-left and not cluttering it with things like widgets:
+I just prefer having the hot corner on the bottom left and not cluttering it with things like widgets:
 
 ![Customized Taskbar](./taskbar.png)
 
@@ -89,7 +89,7 @@ I just prefer having the hot corner on the bottom-left and not cluttering it wit
 It is probably one of the changes that most people complain about:
 The additional click on "Show more options" required in the explorer's context menu to access
 additional entries, e.g. items added by applications like 7zip.
-I knew about this before upgrading, but didn't expect it to be such a big deal, but frankly,
+I knew about this before upgrading but didn't expect it to be such a big deal, but frankly,
 it does get annoying when you know how _easy_ using the old context menu was.
 I, too, wanted to have it back, even if the design of the new menu is much prettier.
 
@@ -133,16 +133,16 @@ I'm eager to see how this workflow works out in the future.
 
 So far, I have been using Windows 11 for roughly one day after finishing the installation and
 honestly, so far, I really like it.
-The rough edges outlined above were thankfully resolveable with some tweaking and, with all those
+The rough edges outlined above were thankfully resolvable with some tweaking and, with all those
 rough edges being smoothed, Windows 11 is, so far, quite enjoyable.
 Something that I really appreciate is the new design language.
 It is often dismissed online ("who cares about design?"), but I personally really adore it,
 especially considering that I am using it nearly on a daily basis - I want it to look good!
 It also does feel faster than my previous Windows 10 installation, but that might also be
-attributeable to the reset itself. A fresh Windows 10 setup would most likely also have caused
+attributable to the reset itself. A fresh Windows 10 setup would most likely also have caused
 a noticeable performance improvement.
 
 One thing that I'm eager to test in the near future is the Windows Subsystem for Android.
 I did install the necessary components but, like many other users, am failing at the moment
-at the Amazon Store's login screen which keeps reappearing after a successful signin.
+at the Amazon Store's login screen which keeps reappearing after a successful sign in.
 I'll see if I can somehow fix this in the near future.
