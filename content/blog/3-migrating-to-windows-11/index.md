@@ -111,7 +111,7 @@ In any case, uninstalling them *again*, so far, kept them gone for good.
 
 ### Installing Applications
 
-One of the coolest features that were "recently" introduced is, in my opinion, [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/).
+One of the coolest features that were "recently" introduced is, in my opinion, [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/).
 winget made the installation of my default applications an incredibly simple and streamlined process.
 Before the upgrade, I created a list of all my previously installed applications.
 After the installation of Windows 11, all I had to do was run `winget install THE_APP_ID` for each
@@ -137,7 +137,7 @@ The rough edges outlined above were thankfully resolvable with some tweaking and
 rough edges being smoothed, Windows 11 is, so far, quite enjoyable.
 Something that I really appreciate is the new design language.
 It is often dismissed online ("who cares about design?"), but I personally really adore it,
-especially considering that I am using it nearly on a daily basis - I want it to look good!
+especially considering that I am using it on a daily basis - I want it to look good!
 It also does feel faster than my previous Windows 10 installation, but that might also be
 attributable to the reset itself. A fresh Windows 10 setup would most likely also have caused
 a noticeable performance improvement.
