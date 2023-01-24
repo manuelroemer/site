@@ -17,7 +17,7 @@ Apianweg, 14
 
 ### Kontakt
 
-**Telefon:** 08761 724816  
+**Telefon:** 𝟢𝟪𝟩𝟨𝟣 𝟩𝟤𝟦𝟪𝟣𝟨  
 **E-Mail:** hello@manuelroemer.com
 
 ### Redaktionell verantwortlich
@@ -48,7 +48,7 @@ Apianweg, 14
 
 ### Contact
 
-**Phone:** 08761 724816  
+**Phone:** 𝟢𝟪𝟩𝟨𝟣 𝟩𝟤𝟦𝟪𝟣𝟨    
 **E-mail:** hello@manuelroemer.com
 
 ### Person responsible for editorial

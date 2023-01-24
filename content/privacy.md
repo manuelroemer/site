@@ -74,7 +74,7 @@ Apianweg 14
 85368 Moosburg an der Isar  
 Deutschland
 
-Phone: 08761 724816  
+Phone: 𝟢𝟪𝟩𝟨𝟣 𝟩𝟤𝟦𝟪𝟣𝟨    
 E-mail: hello@manuelroemer.com
 
 The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g., names, e-mail addresses, etc.).
