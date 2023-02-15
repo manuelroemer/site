@@ -37,7 +37,7 @@ The lecture and this summary assume the following meaning behind these terms:
 
 ## Distributed Systems - Motivation
 
-{{< figure src="./client-server.png" caption="The simplest possible a DS, consisting of two nodes sending a message to each other." >}}
+{{< figure src="./client-server.png" caption="The simplest possible DS, consisting of two nodes sending a message to each other." >}}
 
 There are many possible reasons for choosing to architecting a system in a distributed way:
 
