@@ -39,6 +39,7 @@ The lecture and this summary assume the following meaning behind these terms:
 * **Availability**: A synonym for "uptime", i.e., the fraction of time that a DS is working correctly (from the perspective of a user).
 * **(Un-)marshalling**: A synonym for (de-)serializing a data structure so that it can be sent over the network.
 * **Interface Definition Language (IDL)**: A format defining type signatures in a (programming) language-independent way.
+* **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
 
 ## Distributed Systems - Motivation
 
@@ -100,6 +101,10 @@ There are, typically, two types of leases:
 2. **Write** leases (allows _one single_ writer).
 
 Servers may further forcibly **evict** clients holding a lease if required.
+
+## Concept: State Machine Replication
+
+**State Machine Replication** is an approach to make replicas fault tolerance. It builds upon the fact that **state machines** are deterministic: For a given input, a state machine will always produce a given output. Applied to a DS, it is possible to make each replica a state machine. By observing the output of each other, replicas notice when another replica becomes faulty (this is the case when the output of a replica deviates from the expected output).
 
 ## Case Study: MapReduce
 
