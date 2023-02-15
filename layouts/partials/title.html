@@ -15,4 +15,6 @@ For bundle pages, only the title is shown.
   {{ else }}
     <h1>{{ .Title | markdownify }}</h1>
   {{ end }}
+
+  {{ partial "toc" . }}
 {{ end }}

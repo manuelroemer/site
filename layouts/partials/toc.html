@@ -1,0 +1,12 @@
+{{ if .Params.toc }}
+  <h2>Table of Contents</h2>
+
+  <!--
+  This is a super-dirty hack to remove the <nav> from the TOC. This is done because Pico.css
+  applies nav styles to the TOC otherwise and these styles are a pain to override.
+
+  TODO: Once Pico is removed, remove the "replace" here.
+  -->
+  {{ replace .TableOfContents "nav" "div" | safeHTML }}
+  <hr />
+{{ end }}

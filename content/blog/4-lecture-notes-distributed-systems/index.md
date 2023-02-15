@@ -5,6 +5,7 @@ lastmod: null
 title: "Lecture Notes: Distributed Systems"
 summary: 'Lecture notes about and summaries of the "Distributed Systems" lecture at TUM.'
 tags: ['university', 'distributed systems']
+toc: true
 ---
 
 This is a summary of the [Distributed Systems](https://web.archive.org/web/20230215161635/https://campus.tum.de/tumonline/WBMODHB.wbShowMHBReadOnly?pKnotenNr=756837) course, taken in the winter semester 2022/2023. This is only a condensed version of the topics covered in the actual lecture and, if used for studying, should therefore not be used as a replacement of the actual material.
