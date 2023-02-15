@@ -58,6 +58,10 @@ This website is configured to interpret and render dates with the following sema
 By default, Hugo provides the `tags` and `categories` taxonomies/page params.
 This website disables `categories`. Only `tags` are used.
 
+### ToC
+
+The ToC (Table of Contents) is opt-in. Articles that need a ToC need to set `toc: true` in the page variables.
+
 ### Description and Summary
 
 Pages can have both a `description` and `summary`.  
