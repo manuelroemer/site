@@ -188,3 +188,70 @@ _Reading_ data is straightforward: The client contacts the data node containing 
 Writes in GFS are **consistent**, but **undefined**. This is the case because it's possible for file regions to end up containing mingled fragments from different clients. _"Consistent"_, in this case, means that all clients will see the same _results_. This result may not be what the client _wrote_. In contrast, a chunk/region is called _"defined"_, if the result is exactly what the client wrote. See the following table for overall consistency guarantees:
 
 {{< figure src="./gfs-consistency.png" caption="GFS Consistency Guarantees." attr="Source" attrlink="https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf" >}}
+
+## Case Study: Zookeeper
+
+**📄Papers**: [1](https://www.usenix.org/legacy/event/atc10/tech/full_papers/Hunt.pdf)
+
+Zookeeper is a microkernel-like application which, as a kernel, provides a foundation for other distributed systems. It provides a slim API surface which can be used for common tasks/challenges like _configuration_, _naming_, _synchronization_, _discovery_, _group services_, ... Internally, Zookeeper uses a cluster of servers with one leader to serve an arbitrary number of clients.  
+Zookeeper uses/guarantees **FIFO-ordering** for clients, **Linearizable writes** and a **wait-free API**.  
+Each Zookeeper server keeps a **full copy** of the state **in-memory**.
+
+{{< figure src="./zookeeper-architecture.jpg" caption="Zookeeper Architecture." attr="Source" attrlink="https://zookeeper.apache.org/doc/r3.8.1/zookeeperOver.html" >}}
+
+Zookeeper stores data in a **hierarchy**. The nodes are called **znodes**. These can store arbitrary data. A znode can be **regular** (persistent, client-managed) or **ephemeral** (deleted once the session of the creator client expires). A znode can also be **flagged** as **sequential** (resulting in increasing counters) and/or as **watch**ed (clients will be notified about changes). These foundations result in the following API:
+
+```js
+create(path, data, flags)
+delete(path, version) // Version is used for conditional updates.
+exists(path, watch)
+getData(path, watch)
+setData(path, data, version) // Version is used for conditional updates.
+getChildren(path, watch)
+sync() // To flush() changes.
+```
+
+{{< figure src="./zookeeper-hierarchy.jpg" caption="A Zookeeper znode hierarchy." attr="Source" attrlink="https://zookeeper.apache.org/doc/r3.8.1/zookeeperOver.html" >}}
+
+### Zookeeper: Practical Examples
+
+**Configuration**: Get/Set shared settings.
+```js
+// Get config and be notified about changes:
+let currentConfig = getData('.../config/settings', true)
+
+// Update config:
+setData('.../config/settings', newConfig)
+
+// Update local config value on change:
+onConfigChanged() {
+  getData('.../config/settings', true)
+}
+```
+
+**Group Membership**: Register clients as znodes which persist while the client is alive. Get all currently active clients as a leader.
+```js
+// Register myself in the "worker" group:
+create('.../workers/myClient', myClientInfo, EPHEMERAL)
+
+// Leader: get group members (and be notified about changes):
+let members = getChildren('.../workers', true)
+```
+
+**Leader Election**: Find the leader or try to become the leader if no leader exists.
+```js
+let leader
+while (!leader) {
+  leader = getData('.../workers/leader', true) || create('.../workers/leader', myClientInfo, EPHEMERAL)
+} 
+```
+
+**Mutex**: Create a single mutex.
+```js
+if (create('.../mutex', EPHEMERAL)) {
+  // Mutex acquired!
+} else {
+  // Wait for release:
+  getData('.../mutex', true)
+}
+```
