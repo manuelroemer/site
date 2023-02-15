@@ -7,7 +7,7 @@ summary: 'Lecture notes about and summaries of the "Distributed Systems" lecture
 tags: ['university', 'distributed systems']
 ---
 
-This is a summary of the [Distributed Systems](https://web.archive.org/web/20230215161635/https://campus.tum.de/tumonline/WBMODHB.wbShowMHBReadOnly?pKnotenNr=756837) course, taken in the winter semester 2022/2023. These is only a condensed version of the topics covered in the actual lecture and, if used for studying, should therefore not be used as a supplement to the actual material.
+This is a summary of the [Distributed Systems](https://web.archive.org/web/20230215161635/https://campus.tum.de/tumonline/WBMODHB.wbShowMHBReadOnly?pKnotenNr=756837) course, taken in the winter semester 2022/2023. This is only a condensed version of the topics covered in the actual lecture and, if used for studying, should therefore not be used as a replacement of the actual material.
 
 ## Abbreviations
 
@@ -15,9 +15,13 @@ This summary uses the following abbreviations:
 
 * **DS**: Distributed System
 * **FP**: Functional Programming
+* **FS**: File System
+* **GFS**: Google File System
+* **HDFS**: Hadoop Distributed File System
 * **IDL**: Interface Definition Language
 * **KV**: Key-Value
 * **RPC**: Remote Procedure Call
+* **RW**: Read-Write
 
 ## Terminology
 
@@ -85,9 +89,20 @@ RPCs are very common in todays applications. Examples of prominent RPC framework
 
 ## Concept: Leases
 
+**📄 Papers**: [1](https://web.stanford.edu/class/cs240/readings/89-leases.pdf)
 
+Leases address the general issue of acquiring exclusive read- or write-access to a resource. They solve a problem of traditional locks applied to a DS: That any node which acquired a lock can crash or have a network failure, resulting in the lock never being released.  
+Leases address this underlying problem by applying a **timeout**. A client can request a lease ("lock") for a resource for a limited amount of time and, if required, **renew** that lease. Once the lease **expires**, the resource is usable by other nodes again.
+
+There are, typically, two types of leases:
+1. **Read** leases (allows _many concurrent_ readers).
+2. **Write** leases (allows _one single_ writer).
+
+Servers may further forcibly **evict** clients holding a lease if required.
 
 ## Case Study: MapReduce
+
+**📄 Papers**: [1](https://www.usenix.org/legacy/events/osdi04/tech/full_papers/dean/dean.pdf)
 
 MapReduce is a model/library introduced by Google. It provides an abstraction for processing large amounts of data on multiple distributed machines. It provides a slim API to application developers, inspired by FP concepts:
 
@@ -121,6 +136,8 @@ Internally, MapReduce uses a master/slave architecture and a distributed file sy
 
 ## Case Study: (Apache) Pig
 
+**📄 Papers**: [1](http://infolab.stanford.edu/~olston/publications/sigmod08.pdf), [2](http://infolab.stanford.edu/~olston/publications/vldb09.pdf)
+
 MapReduce is powerful, but is a lower-level abstraction that, while handling the complexity of a DS, leaves a lot of work remaining for the application developer. Many common tasks, especially in the area of data analysis (_filter_, _join_, _group_, ...) is missing in MapReduce.
 
 Pig is a framework which _builds upon MapReduce_ and provides these operations via the **Pig Latin** language. Pig Latin is an SQL-like, imperative language that is **compiled** into several _MapReduce steps_. This compilation process enables optimizations and simplifications in otherwise complex and potentially slow MapReduce applications.
@@ -128,3 +145,40 @@ Pig is a framework which _builds upon MapReduce_ and provides these operations v
 The Pig compiler uses the following transformation structure: **Logical plan** ➡️ **Physical plan** ➡️ **MapReduce plan**. The last plan, MapReduce, is a sequence of multiple MapReduce programs that represent the initial Pig program. The following image shows the tiered compilation process:
 
 {{< figure src="./pig-plans.png" caption="Pig's plan transformation." attr="Source" attrlink="http://infolab.stanford.edu/~olston/publications/vldb09.pdf" >}}
+
+## Case Study: Google File System (GFS) / Hadoop Distributed File System (HDFS)
+
+**📄 Papers**: [1](https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf)
+
+Distributed file systems provide a FS spread out over various machines. Users of the FS do not necessarily notice this and may interact with the FS as if it was provided by the local device. Making a file system distributed massively increases the amount of storeable data and bandwidth, while, as a tradeoff, bringing all of the complexities of a DS.  
+A distributed FS is often the very **bottom layer** of a DS, because reading/writing files is typically a core requirement of any application. As such, it is, for example, typical to see MapReduce applications written on top of a distributed FS.
+
+GFS/HDFS are distributed FS implementations. GFS specifically was invented by Google to address internal requirements like large files, large streaming reads, concurrent appends, high bandwidth, etc. HDFS was introduced in the lecture as the open-source variant of GFS. In the following, details of GFS are described.
+
+### GFS: Architecture Overview
+
+{{< figure src="./gfs-architecture.png" caption="GFS Architecture." >}}
+
+GFS typically has a **master/coordinator node** which provides **metadata** information to clients about **data nodes**. **Data nodes** (also called _chunk servers_) are responsible for storing the actual FS data. Here, they use the machine's local FS for storage. The _master node_ is made aware of the available _data nodes_ via **heartbeats**. Due to the master node being **centralized**, clients will try to minimize the time spent interacting with it. Generally, clients will talk to data nodes _directly_. They do have to contact the master node for getting the data node metadata though (and for acquiring a lease on that node):
+
+{{< figure src="./gfs-access.png" caption="GFS data access." >}}
+
+GFS structures files into various chunks (with a length of 64MB). These chunks are replicated accross multiple data nodes. When clients want to _read/write a chunk_, they talk to the master node which provides the chunk location. Clients are then free to choose any replica holding the chunk (and will typically choose the closest).
+
+{{< figure src="./gfs-chunking.png" caption="Chunks in GFS. Note that the file is spread over different data nodes/replicas." >}}
+
+### GFS: Reading and Writing Data
+
+_Reading_ data is straightforward: The client contacts the data node containing the chunk of interest. _Writing_ data is, however, more complex. The following image shows the required steps. Briefly, the following happens:
+
+1. The client retrieves the data node locations from the master.
+2. The client pushes the data to **all replicas**.  
+   Note that the client only makes one request: The replicas **forward** the request to the nearest, next replica.
+3. The client asks the primary replica to finalize the write. The primary forwards this request to the secondary replicas.
+4. If everything succeeded, the client is notified. If not, he will retry.
+
+{{< figure src="./gfs-write.png" caption="Writing data in GFS." attr="Source" attrlink="https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf" >}}
+
+Writes in GFS are **consistent**, but **undefined**. This is the case because it's possible for file regions to end up containing mingled fragments from different clients. _"Consistent"_, in this case, means that all clients will see the same _results_. This result may not be what the client _wrote_. In contrast, a chunk/region is called _"defined"_, if the result is exactly what the client wrote. See the following table for overall consistency guarantees:
+
+{{< figure src="./gfs-consistency.png" caption="GFS Consistency Guarantees." attr="Source" attrlink="https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf" >}}
