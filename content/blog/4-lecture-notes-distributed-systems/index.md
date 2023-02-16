@@ -16,6 +16,9 @@ This is a summary of the [Distributed Systems](https://web.archive.org/web/20230
 
 This summary uses the following abbreviations:
 
+- **2PC**: 2 Phase Commit
+- **2PL**: 2 Phase Locking
+- **API**: Application Programming Interface
 - **DB**: Database
 - **DS**: Distributed System
 - **FP**: Functional Programming
@@ -27,6 +30,7 @@ This summary uses the following abbreviations:
 - **LSM**: Log Structured Merge-Tree
 - **RPC**: Remote Procedure Call
 - **RW**: Read-Write
+- **TX**: Transaction
 - **ZAB**: Zookeeper Atomic Broadcast
 
 ## Terminology
@@ -50,6 +54,13 @@ The lecture and this summary assume the following meaning behind these terms:
   - **At-most-once**: Send request _once_, don't retry. Updates are _allowed_.
   - **At-least-once**: Send request _until acknowledged_. Updates can _be repeated_.
   - **Exactly-once**: Request can be _retried infinitely_ because they are _idempotent_ (or deduplicated).
+- **2 Phase Locking (2PL)**: A flow where locks are acquired in two phases:
+  - _Expanding phase_ (locks are being acquired until all required locks are held, i.e., until the _lock point_ is reached).
+  - _Shrinking phase_ (all previously acquired locks are released).
+- **2 Phase Commit (2PC)**: An atomic commitment protocol consisting of two phases:
+  - _Commit request phase_: A coordinator attempts to prepare all processes for a TX; other process can _commit_ or _abort_ that TX.
+  - _Commit phase_: If all process voted to _commit_, the TX is commited; otherwise _aborted_.
+- **Paxos**: A distributed _consensus_ algorithm (similar to Raft).
 
 ## Distributed Systems - Motivation
 
@@ -435,3 +446,34 @@ Here, the nodes have the following responsibilities:
   - Stores system metadata.
   - Handles tablet location.
 
+## Case Study: Google's Spanner
+
+**📄 Papers**: [1](https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf)
+
+Spanner is a _globally-distributed, scalable, multi-version_ DB developed by Google. A key point of interest is that it supports **externally-consistent, linearizable, distributed transactions**. Distributed transactions with strong semantics are, fundamentally, a very hard problem to solve.  
+Spanner thus "competes" with [BigTable](#case-study-googles-bigtable), though they solve different goals: BigTable has _weak semantics_ (specifically, no transaction support beyond one row), while Spanner provides _strong semantics_ (distributed multi-row transactions).
+
+Spanner builds upon the following techniques to achieve its goal:
+- State Machine Replication within a shard (via Paxos)
+- 2PL for serialization
+- 2PC for distributed transactions
+- Multi-version DB systems
+- Snapshot isolation
+
+Spanner introduced a novel concept: **Global wall-clock time** / **TrueTime**. Previous systems assumed that a global time was not possible. Spanner introduces such a global time _that is respected by every timestamp inside the system_ (resulting in `timestampOrder == commitOrder`). The **TrueTime** API exposes time as an _interval_ `[earliest, latest]` and **not** as a fixed timestamp. The interval is based on an error term **ε**, where `latest - earliest == ε`, i.e., `interval.length == ε`. ε is calculated based on time values provided by different servers.
+
+{{< figure src="./spanner-truetime-timestamp.png" caption="TrueTime timestamp assignment." >}}
+
+The above image shows how a timestamp is assigned using TrueTime. Notably, after acquiring all locks, a timestamp `s` is picked as the **latest** possible TrueTime. Afterwards, the system waits until `s < TrueTime.now().earliest` before releasing the locks. This guarantees that enough time has passed for the timestamp `s` to be valid. The waiting time is called **commit wait**.
+
+_During_ the **commit wait**, the various servers _inside a Paxos group_ (i.e., one _shard_) also run Paxos to **achieve consensus** between the different replicas. _After_ the locks are released by the _leader_, all _follower_ nodes are notified about the TX (to incorporate the changes).
+
+In reality, there are many different Paxos groups (shards). These also need to synchronize. One key aspect here is that the commit timestamp `s` needs to be picked from a variety of shards. Here, the **latest `s`** is picked to ensure consistency. The flow is depicted in the following picture:
+
+{{< figure src="./spanner-sharded.png" caption="Sharded TX. Each TX takes place on a different shard. `T_c` leads the TX." >}}
+
+Finally, Spanner's architecture is shown in the following images:
+
+{{< figure src="./spanner-server-organization.png" caption="Spanner server organization." attr="Source" attrlink="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf" >}}
+
+{{< figure src="./spanner-spanserver.png" caption="Spanserver software stack. Colussus is similar to GFS. The lock table is used for 2PL. The participant leader(s) run 2PC." attr="Source" attrlink="https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf" >}}
