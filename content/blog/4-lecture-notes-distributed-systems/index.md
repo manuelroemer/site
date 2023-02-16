@@ -305,6 +305,223 @@ on delivering (CAS, x, old, new) by total order broadcast do
 end on
 ```
 
+## Concept: Consensus
+
+Motivation: For a _fault-tolerant total order broadcast_ using a _leader_, it's required to be able to automatically **elect a new leader**. This requires **consensus** among the nodes.  
+Consensus generally means having multiple nodes **agree on a single value**. This can be used for **leader election**.
+
+One algorithm for leader election is **Raft**. Raft elects **one leader** per **term**. A **new term** is started when the old leader becomes faulty. Raft **can only guarantee one leader per term**, but must allow multiple leaders from different terms at a given point in time. In Raft, nodes may take on the following states:
+
+{{< figure src="./raft-states.png" caption="Raft node state transitions. (Source: Lecture Slides)" >}}
+
+```
+on initialisation do
+  currentTerm := 0
+  votedFor := null
+  log := ()
+  commitLength := 0
+  currentRole := follower
+  currentLeader := null
+  votesReceived := {}
+  sentLength := ()
+  ackedLength := ()
+end on
+
+on recovery from crash do
+  currentRole := follower
+  currentLeader := null
+  votesReceived := {}
+  sentLength := ()
+  ackedLength := ()
+end on
+
+on node nodeId suspects leader has failed, or on election timeout do
+  currentTerm := currentTerm + 1
+  currentRole := candidate
+  votedFor := nodeId 
+  votesReceived := {nodeId }
+  lastTerm := 0
+
+  if log.length > 0 then
+    lastTerm := log[log.length - 1].term
+  end if
+
+  msg := (VoteRequest, nodeId, currentTerm, log.length, lastTerm)
+
+  for each node of nodes
+    send msg to node
+  end for each
+
+  start election timer
+end on
+
+on receiving (VoteRequest, cId, cTerm, cLogLength, cLogTerm) at node nodeId do
+  if cTerm > currentTerm then
+    currentTerm := cTerm
+    currentRole := follower
+    votedFor := null
+  end if
+
+  lastTerm := 0
+  
+  if log.length > 0 then
+    lastTerm := log[log.length - 1].term
+  endif
+
+  logOk := (cLogTerm > lastTerm) ||
+    (cLogTerm = lastTerm && cLogLength >= log.length)
+
+  if cTerm = currentTerm && logOk && votedFor in {cId null} then
+    votedFor := cId
+    send (VoteResponse, nodeId, currentTerm, true) to node cId
+  else
+    send (VoteResponse, nodeId, currentTerm, false) to node cId
+  end if
+end on
+
+on receiving (VoteResponse, voterId, term, granted) at nodeId do
+  if currentRole = candidate && term = currentTerm && granted then
+    votesReceived := votesReceived union {voterId}
+  
+    // Quorum reached?
+    if |votesReceived| >= ceil((|nodes| + 1) / 2) then
+      currentRole := leader
+      currentLeader := nodeId
+      cancel election timer
+
+      for each follower in nodes \ {nodeId} do
+        sentLength[follower] := log.length
+        ackedLength[follower] := 0
+        ReplicateLog(nodeId, follower)
+      end for each
+    end if
+  else if term > currentTerm then
+    currentTerm := term
+    currentRole := follower
+    votedFor := null
+    cancel election timer
+  end if
+end on
+
+on request to broadcst msg at node nodeId do
+  if currentRole = leader then
+    append the record (msg : msg, term : currentTerm) to log
+    ackedLength[nodeId] := log.length
+
+    for each follower in nodes \ {nodeId} do
+      ReplicateLog(nodeId, follower)
+    end for each
+  else
+    forward the request to currentLeader via FIFO link
+  end if
+end on
+
+periodically at node nodeId do
+  if currentRole = leader then
+    for each follower in nodes \ {nodeId} do
+      ReplicateLog(nodeId, follower)
+    end for each
+  end if
+end do
+
+// Only called on leader whenever there is a new message in the log + periodically.
+function ReplicateLog(leaderId, followerId)
+  prefixLen := sentLength[followerId]
+  suffix := (log[prefixLen], log[prefixLen + 1], ..., log[log.length - 1])
+  prefixTerm := 0
+
+  if prefixLen > 0 then
+    prefixTerm := log[prefixLen - 1].term
+  end if
+
+  send (LogRequest, leaderId, currentTerm, prefixLen, prefixTerm, commitLength, suffix) to followerId
+end function
+
+// follower receiving messages
+on receiving (LogRequest, leaderId, term, prefixLen, prefixTerm, leaderCommit, suffix) at node nodeId do
+  if term > currentTerm then
+    currentTerm := term
+    voedFor := null
+    cancel election timer
+  end if
+
+  if term = currentTerm then
+    currentRole := follower
+    currentLeader := leaderId
+  end if
+
+  logOk := (log.length >= prefixLen) && (prefixLen = 0 || log[prefixLen - 1].term = prefixTerm)
+
+  if (term = currentTerm && logOk then
+    AppendEntries(prefixLen, leaderCommit, suffix)
+    ack := prefixLen + suffix.length
+    send (LogResponse, nodeId, currentTerm, ack, true) to leaderId
+  else
+    send (LogResponse, nodeId, currentTerm, 0, false) to leaderId
+  end if
+end on
+
+// update followers' logs
+function AppendEntries(prefixLen, leaderCommit, suffix)
+  if suffix.length > 0 && log.length > prefixLen then
+    index := min min(log.length, prefixLen + suffix.length) - 1
+
+    if log[index].term != suffix[index - prefixLen].term then
+      log := (log[0], log[1], ..., log[prefixLen - 1])
+    end if
+  end if
+
+  if prefixLen + suffix.length > log.length then
+    for i := log.length - prefixLen to suffix.length - 1 do
+      append suffix[k] to log
+    end for
+  end if
+
+  if leaderCommit > commitLength then
+    for i := commitLength to leaderCommit - 1 do
+      deliver log[i].msg to the application
+    end for
+
+    commitLength := leaderCommit
+  end if
+end function
+
+// leader receiving acks
+on receiving (LogResponse, follower, term, ack, success) at nodeId do
+  if term = currentTerm && currentRole = leader then
+    if success && ack >= ackedLength[follower] then
+      sentLength[follower] := ack
+      ackedLength[follower] := ack
+      CommitLogEntries()
+    else if sentLength[follower] > 0 then
+      sentLength[follower] := sentLength[follower] - 1
+      ReplicateLog(nodeId, follower)
+    end if
+  else if term > currentTerm then
+    currentTerm := term
+    currentRole := follower
+    votedFor := null
+    cancel election timer
+  end if
+end on
+
+// leader committing log entries
+define acks(length) = |{n in nodes | ackedLength[n] >= length}|
+
+function CommitLogEntries()
+  minAcks := ceil((|nodes| + 1) / 2)
+  ready := {len in {1, ..., log.length} | acks(len) >= minAcks}
+
+  if ready != {} && max(ready) > commitLength && log[max(ready) - 1].term = currentTerm then
+    for i := commitLength to max(ready) - 1 do
+      deliver log[i].msg to the application
+    end for
+
+    commitLength := max(ready)
+  end if
+end function
+```
+
 ## Concept: RPC (Remote Procedure Call)
 
 RPC is a concept that leverages a DS to execute a function (or _procedure_) on a _remote_ machine. This is hidden from the caller of the function (**location transparency**).
