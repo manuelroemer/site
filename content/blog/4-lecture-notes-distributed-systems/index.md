@@ -28,6 +28,7 @@ This summary uses the following abbreviations:
 - **IDL**: Interface Definition Language
 - **KV**: Key-Value
 - **LSM**: Log Structured Merge-Tree
+- **NTP**: Network Time Protocol
 - **RPC**: Remote Procedure Call
 - **RW**: Read-Write
 - **TX**: Transaction
@@ -50,6 +51,13 @@ The lecture and this summary assume the following meaning behind these terms:
 - **Availability**: A synonym for "uptime", i.e., the fraction of time that a DS is working correctly (from the perspective of a user).
 - **(Un-)marshalling**: A synonym for (de-)serializing a data structure so that it can be sent over the network.
 - **Interface Definition Language (IDL)**: A format defining type signatures in a (programming) language-independent way.
+- **Happens-Before Relation**: An event _a_ _happens before_ an event _b_ if:
+  - _a_ and _b_ occur at the same node _and_ _a_ occured before _b_.
+  - _a_ is the sending of a message and _b_ is the receiving of that message.
+  - an event _c_ exists where _a_ -> _c_ and _c_ -> _b_.
+
+  The inverse is a concurrent event (_a || b_).
+- **Causality**: Essentially, what _caused_ an event? An event _a_ concurrent to _b_ cannot have caused _b_. If _a_ happened before _b_, it might have.
 - **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
 - **Idempotence**: A function `f(x)` is _idempotent_ if `f(x) = f(f(x))`, i.e., if it can be invoked multiple times without causing duplication.  
   In a DS, idempotence may have an influence on retry semantics:
@@ -114,6 +122,16 @@ The further right the option is in the table, the harder it becomes. Algorithms 
 
 ## Concept: Timing and Clocks
 
+Measuring the current time is essential to a DS, e.g., for **ordering messages**. It is, also, a very hard problem. We differentiate between two types of clocks for time measurement:
+1. **Physical clocks**: Count the number of seconds elapsed since a given point in time.
+2. **Logical clocks**: Count _events_ (e.g., number of messages sent).
+
+We can further distinguish between these clocks:
+1. **Time-of-day clock**: Time since a fixed date.
+2. **Monotonic clock**: Time since an arbitrary point in time (e.g., when a machine was started).
+
+In a DS, time must be synchronized to adjust/fix a local clock's _drift_ (deviation). Here, multiple protocols/algorithms exist.  
+One of them is the **Network Time Protocol (NTP)** which synchronizes time by sending a request to an NTP server. The server answers with its current time. That + the duration of the request and response allow the client to update its local tie.
 
 
 ## Concept: RPC (Remote Procedure Call)
