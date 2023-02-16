@@ -114,6 +114,45 @@ Servers may further forcibly **evict** clients holding a lease if required.
 
 **State Machine Replication** is an approach to make replicas fault tolerance. It builds upon the fact that **state machines** are deterministic: For a given input, a state machine will always produce a given output. Applied to a DS, it is possible to make each replica a state machine. By observing the output of each other, replicas notice when another replica becomes faulty (this is the case when the output of a replica deviates from the expected output).
 
+## Concept: Key-Value (KV) Stores
+
+KV stores are NoSQL-like, distributed systems which are able to store massive amounts of **values** indexed by a **key**. At their core, they have a very slim API surface:
+
+```js
+get(key)
+put(key, value)
+delete(key)
+```
+
+This simple API brings a lot of benefits in a distributed world: **Reliability**, **high availability**, **high performance**, **horizontal scalability**, etc. The tradeoff being made is the lack of a data schema (which becomes apparent when comparing a KV store with a fully-fledged SQL database).
+
+Prominent examples of KV stores are:
+* BigTable
+* Apache HBase
+* Apache Cassandra
+* Redis
+* Amazon Dynamo
+
+KV stores typically build upon a concept called [**consistent hashing**](#concept-consistent-hashing).
+
+KV stores typically **replicate** values. KV pairs can be read from any replica.
+
+For a real-life example, see [Cassandra](#case-study-cassandra).
+
+## Concept: Consistent Hashing
+
+Consistent hashing addresses the problem of _mapping objects to caches_. Given a number of caches, each cache should hold an equal share of cachable objects. Clients need to know which cache to contact to avoid cache misses. The key issue to be solved here is how to partition the objects in a _non-skewed distribution_, i.e., in a way where object identifiers are evenly mapped to the available caches. Given a uniformly distributed hash function, **hashing** is one way to solve this.
+
+The problem with using "normal hashing" is that, on failure of a cache node, other nodes would have to repopulate their internal cache. This would cause a lot of inefficient cache misses:
+
+{{< figure src="./consistent-hashing-problem.png" caption="The problem of not using consistent hashing." >}}
+
+Consistent hashing solves the issue by **allowing the addition/removal** of cache nodes **without (much) disruption**. Consistent hashing is implemented via a key ring and a hash function that uniformly distributes the results over an interval `[0, M]` where `M` indicates the number of cache nodes. Each cache node is placed at a certain position of the key ring. A node is responsible for every key <= its position. When new nodes are _added_, they take over the responsibility for their new key ring section from the node that previously handled them. When nodes _fail_, the successor node takes over the failed nodes responsibilities. Node addition/removal can be coordinated via _gossiping_ or a _central coordinator_ service. The following image shows an example:
+
+{{< figure src="./consistent-hashing-ring.png" caption="Consistent hashing applied." >}}
+
+When a client wants to do a **lookup**, he needs to fetch the information about which cache node is responsible for the (hashed) key. He can then (depending on the system, of course) directly contact that node. The cache lookup data structure can be implemented as a **binary tree** for `O(log n)` lookups (but other solutions exist as well).
+
 ## Case Study: MapReduce
 
 **📄 Papers**: [1](https://www.usenix.org/legacy/events/osdi04/tech/full_papers/dean/dean.pdf)
@@ -289,3 +328,5 @@ As mentioned before, a process in ZAB can be assigned two **roles**: **leader** 
 The above image shows the entire algorithm. The three phases can be explained in a more simplified manner like this:
 
 {{< figure src="./zab-phases-simplified.png" caption="The ZAB protocol, running through the three ZAB phases (simplified)." >}}
+
+## Case Study: Cassandra
