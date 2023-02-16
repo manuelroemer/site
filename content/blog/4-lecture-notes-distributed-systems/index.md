@@ -62,6 +62,7 @@ The lecture and this summary assume the following meaning behind these terms:
   The inverse is a concurrent event (_a || b_).
 - **Causality**: Essentially, what _caused_ an event? An event _a_ concurrent to _b_ cannot have caused _b_. If _a_ happened before _b_, it might have.
 - **Quorum**: A majority of entities (here, nodes) confirms an operation. Typically `(n + 1) / 2`. Failure to reach quorum indicates an issue.
+- **Local-first Software**: Software, where a local device is a fully-functional replica and servers are just for backup.
 - **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
 - **Idempotence**: A function `f(x)` is _idempotent_ if `f(x) = f(f(x))`, i.e., if it can be invoked multiple times without causing duplication.  
   In a DS, idempotence may have an influence on retry semantics:
@@ -521,6 +522,13 @@ function CommitLogEntries()
   end if
 end function
 ```
+
+## Concept: Eventual Consistency
+
+While [Linearizability](#concept-linearizability) is a strong model, it has disadvantages in the form of _performance_, _scalability_ and _availability_. Sometimes, weaker models are enough for a DS. One such model is **eventual consistency**. It states that **if there are no more updates**, then all replicas will **eventually** be in the same state.  
+**Strong eventual consistency** improves on the "no more updates" part via the following points:
+- **Eventual delivery**: Every update made to _one_ non-faulty replica is eventually processed by _every_ non-faulty replica.
+- **Convergence**: Any replicas which have processed the _same updates_ are in the _same state_. 
 
 ## Concept: RPC (Remote Procedure Call)
 
