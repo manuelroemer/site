@@ -1,6 +1,5 @@
 ---
-draft: true
-date: 2023-02-15T17:06:57+01:00
+date: 2023-02-16T19:54:00+01:00
 lastmod: null
 title: 'Lecture Notes: Distributed Systems'
 summary: 'Lecture notes about and summaries of the "Distributed Systems" lecture at TUM.'
