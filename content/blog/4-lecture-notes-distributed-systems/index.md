@@ -43,6 +43,8 @@ The lecture and this summary assume the following meaning behind these terms:
 - **Fault**: Indicates that _some part_ of the DS is malfunctioning.
 - **Failure**: Indicates that the entire DS malfunctions.
 - **Fault Tolerance**: A DS continues working, despite one or multiple _faults_ occurring.
+- **Failure Detector**: An algorithm that detects whether a node is faulty. Typically done via message timeouts.
+- **Network Partition**: Some links between nodes dropping/delaying messages for an extended period of time.
 - **Latency**: The time until a message arrives (i.e., the "time in transit") (e.g., 10ms).
 - **Bandwidth**: The data volume that can be sent over a certain period of time (e.g., 1 Mbit/s).
 - **Availability**: A synonym for "uptime", i.e., the fraction of time that a DS is working correctly (from the perspective of a user).
@@ -83,6 +85,36 @@ In summary, a DS might overcome typical challenges that would otherwise occur wi
 - It must be able to _scale_.
 - It must be _performant_.
 - It must be _secure_.
+
+## Concept: System Models
+
+Assuming a bi-directional point-to-point communication between two nodes, the following system model can be derived:
+
+| Part        | Option 1    | Option 2              | Option 3     |
+| ---         | ---         | ---                   | ---          |
+| **Network** | reliable    | fair-loss             | arbitrary    |
+| **Nodes**   | crash-stop  | crash-recovery        | byzantine    |
+| **Timing**  | synchronous | partially synchronous | asynchronous |
+
+The options have the following meaning:
+- **Network**:
+  - **reliable**: A message is received if, and only if, it is sent.
+  - **fair-loss**: Messages may be lost, deduplicated or reordered. If retrying long enough, it will eventually get through.
+  - **arbitrary**: A malicious adversary may interfere with messages.
+- **Nodes**:
+  - **crash-stop**: A node is faulty if it crashes. Crashed nodes stop forever.
+  - **crash-recovery**: A node may crash at any moment, but may resume eventually. Persisted data survives.
+  - **byzantine**: A node is faulty if it deviates from the algorithm. Faulty nodes may do _anything_, including malicious behavior (e.g., dropping all messages).
+- **Timing**:
+  - **synchronous**: Message latency has a known upper bound. Nodes execute at a known speed.
+  - **partially synchronous**: The system is asynchronous for some finite, unknown time, but synchronous otherwise.
+  - **asynchronous**: Messages can be delayed arbitrarily. Nodes can pause arbitrarily. No timing guarantees exist.
+
+The further right the option is in the table, the harder it becomes. Algorithms choose 1 option out of each row that they can handle (e.g., an algorithm could function in a _fair-loss_ network with _crash-stop_ nodes and _asynchronous_ timing).
+
+## Concept: Timing and Clocks
+
+
 
 ## Concept: RPC (Remote Procedure Call)
 
