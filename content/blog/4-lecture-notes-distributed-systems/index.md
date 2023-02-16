@@ -23,6 +23,7 @@ This summary uses the following abbreviations:
 * **HDFS**: Hadoop Distributed File System
 * **IDL**: Interface Definition Language
 * **KV**: Key-Value
+* **LSM**: Log Structured Merge-Tree
 * **RPC**: Remote Procedure Call
 * **RW**: Read-Write
 * **ZAB**: Zookeeper Atomic Broadcast
@@ -152,6 +153,33 @@ Consistent hashing solves the issue by **allowing the addition/removal** of cach
 {{< figure src="./consistent-hashing-ring.png" caption="Consistent hashing applied." >}}
 
 When a client wants to do a **lookup**, he needs to fetch the information about which cache node is responsible for the (hashed) key. He can then (depending on the system, of course) directly contact that node. The cache lookup data structure can be implemented as a **binary tree** for `O(log n)` lookups (but other solutions exist as well).
+
+## Concept: Log Structured Merge-Trees (LSM)
+
+LSMs are a data structure which became popular for NoSQL systems. It combines the benefits of RAM and hard drives (i.e., **fast access** and **persistence**). They provide a very simple API:
+
+```js
+get(key)
+put(key, value)
+```
+
+LSMs leverage three key data structures:
+* **MemTable**: A KV data structure kept entirely in-memory. Uses a Skip list for fast value access.
+* **SSTable**: A persistent, disk-based data structure. Stores **immutable** KV pairs.
+* **WAL**: Append-only log file for fault tolerance (supports UNDO And REDO logs).
+
+In practice, these data structures work together like this:
+
+{{< figure src="./lsm-architecture.png" caption="LSM Architecture." attr="Source" attrlink="https://medium.com/@qiaojialinwolf/lsm-tree-the-underlying-design-of-nosql-database-cf30218e82f3" >}}
+
+1. New KV pairs are **immediately** added to the WAL (allows recovery).
+2. KV pair is added to MemTable.
+3. Once MemTable runs **out of space**: It is made **immutable**. A new MemTable is created.
+4. Immutable MemTables can be **stored on disk**. Here, multiple **layers** exist, continuously increasing in size. _Newer_ entries are stored in the _upper_ layers. Lookups go through the layers, in order.
+
+LSMs use a **compaction phase** (i.e., "garbage collection") in the background to merge SSTables from different layers (older keys are updated with newer values - the old values are discarded).
+
+LSMs don't support "traditional" deletes. Instead, deleted KV pairs are marked with a tombstone (and can be removed in the upcoming compaction phases).
 
 ## Case Study: MapReduce
 
