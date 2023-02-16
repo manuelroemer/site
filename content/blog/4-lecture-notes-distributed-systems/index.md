@@ -330,3 +330,9 @@ The above image shows the entire algorithm. The three phases can be explained in
 {{< figure src="./zab-phases-simplified.png" caption="The ZAB protocol, running through the three ZAB phases (simplified)." >}}
 
 ## Case Study: Cassandra
+
+Cassandra is an **eventually consistent** [KV Store](#concept-key-value-kv-stores) developed by Facebook. It's based on Amazon Dynamo (a closed-source variant). Cassandra uses a **decentralized** architecture (i.e., no master assignment) and [consistent hashing](#concept-consistent-hashing). Information is exchanged via **gossiping**.
+
+Internally, Cassandra is architected and processes reads/writes like this:
+
+{{< figure src="./cassandra.png" caption="Cassandra internals and read/write behavior." >}}
