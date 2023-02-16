@@ -18,7 +18,9 @@ This summary uses the following abbreviations:
 
 - **2PC**: 2 Phase Commit
 - **2PL**: 2 Phase Locking
+- **ACID**: Atomic, Consistent, Isolated & Durable
 - **API**: Application Programming Interface
+- **CAS**: Compare-and-Swap
 - **DB**: Database
 - **DS**: Distributed System
 - **FP**: Functional Programming
@@ -31,6 +33,7 @@ This summary uses the following abbreviations:
 - **NTP**: Network Time Protocol
 - **RPC**: Remote Procedure Call
 - **RW**: Read-Write
+- **SMR**: State Machine Replication
 - **TX**: Transaction
 - **ZAB**: Zookeeper Atomic Broadcast
 
@@ -58,7 +61,7 @@ The lecture and this summary assume the following meaning behind these terms:
 
   The inverse is a concurrent event (_a || b_).
 - **Causality**: Essentially, what _caused_ an event? An event _a_ concurrent to _b_ cannot have caused _b_. If _a_ happened before _b_, it might have.
-- **Broadcast**: Delivering a message m from one node to all others.
+- **Quorum**: A majority of entities (here, nodes) confirms an operation. Typically `(n + 1) / 2`. Failure to reach quorum indicates an issue.
 - **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
 - **Idempotence**: A function `f(x)` is _idempotent_ if `f(x) = f(f(x))`, i.e., if it can be invoked multiple times without causing duplication.  
   In a DS, idempotence may have an influence on retry semantics:
@@ -182,6 +185,126 @@ end on
 
 Vector clocks, in contrast to Lamport clocks, provide information about causality, i.e., which event may have caused another.
 
+## Concept: Broadcasts
+
+Broadcasting means delivering a message from one node to all others. Broadcasts build upon [System Models](#concept-system-models). A broadcast can be **best-effort** (may drop messages), **reliable** (non-faulty nodes deliver every message, via retries) with either an **asynchronous** or **partially synchronous** timing model.
+
+The following _reliable broadcasts_ were presented:
+- **FIFO broadcast**: If one node delivers _m1_ and _m2_ and _broadcast(m1)_ happens before _broadcast(m2)_, then _m1_ must be delivered before _m2_.  
+  FIFO broadcast can easily be implemented via TCP.
+- **Causal broadcast**: If _broadcast(m1)_ happens before _broadcast(m2)_, then _m1_ must be delivered before _m2_.
+- **Total order broadcast**: If _m1_ is delivered before _m2_ on _any_ node, then _m2_ must be delivered before _m2_ on _all_ nodes. There are approaches to a total order broadcast:
+  - **Single leader approach**: One node is a leader. Every message goes through the leader.
+  - **Lamport clock approach**: Every message has a Lamport clock timestamp attached. A message cannot be delivered before all previous messages have been delivered. Nodes must therefore store newer messages until all previous ones have been received.
+- **FIFO total order broadcast**: FIFO + total order broadcast.
+
+**FIFO broadcast algorithm**:
+```
+on initialisation do
+  sendSeq := 0
+  delivered := (0, ..., 0)
+  buffer := {}
+end on
+
+on request to broadcast m at node i do
+  deps := delivered 
+  deps[i] := sendSeq
+  send (i, deps, m) via reliable broadcast
+  sendSeq := sendSeq + 1
+end on
+
+on receiving msg from reliable broadcast at node i do
+  buffer := buffer ∪ {msg}
+  
+  while ∃(sender, deps, m) 2 buffer.deps <= delivered do
+    deliver m to the application
+    buffer := buffer \ {(sender, deps, m)}
+    delivered[sender] := delivered[sender] + 1
+  end while
+end on
+```
+
+**Causal broadcast algorithm**:
+```
+on initialisation do
+  sendSeq := 0
+  delivered := (0, ..., 0)
+  buffer := {}
+end on
+
+on request to broadcast m at node i do
+  deps := delivered
+  deps[i] := sendSeq
+  send (i, deps, m) via reliable broadcast
+  sendSeq := sendSeq + 1
+end on
+
+on receiving msg from reliable broadcast at node i do
+  buffer := buffer ∪ {msg}
+  
+  while ∃(sender, deps, m) ∈ buffer.deps <= delivered do
+    deliver m to the application
+    buffer := buffer \ {(sender, deps, m)}
+    delivered[sender] := delivered[sender] + 1
+  end while
+end on
+```
+
+## Concept: Replication
+
+**Replication** is the process of keeping _multiple copies_ of data on _multiple machines_. Replicas are, due to the distributed nature, frequently **out of sync** and must **reconcile** (i.e., synchronize their states). This can become troublesome when clients read/write concurrently on different out-of-sync replicas, e.g., because two clients might read different values.  
+**Concurrent writes** can be solved via two approaches: **Last writer wins** or **Multi-value register** (timestamps with partial order, where two concurrent values can both be kept).
+**Read after write concurrency** (i.e., after _writing_ to one replica, reading the _same value_ from a _different_ replica) can be solved via **quorums**.
+
+**State Machine Replication (SMR)** is an approach to make replicas fault tolerance. It builds upon the fact that **state machines** are deterministic: For a given input, a state machine will always produce a given output. Applied to a DS, it is possible to make each replica a state machine. By observing the output of each other, replicas notice when another replica becomes faulty (this is the case when the output of a replica deviates from the expected output).  
+SMR uses **FIFO total order broadcast** for every _update_ on all replicas. Applying an update is _deterministic_.
+
+```
+on request to perform update u do
+  send u via FIFO-total order broadcast
+end on
+
+on delivering u through FIFO-total order broadcast do
+  update state using arbitrary deterministic logic
+end on
+```
+
+## Concept: Linearizability
+
+**Linearizability** is a _strong correctness_/_strong consistency_ condition, where a _set of concurrent operations_ on _multiple machines_ can be reordered/executed in a way, as if they were running _on a single machine_. Every operation takes effect _atomically_ sometime after started and ended.
+
+Linearizability is not present by default, but can, in many cases, be achieved via specific approaches or algorithms. An example is the **ABD algorithm**:
+
+{{< figure src="./abd.png" caption="ABD algorithm. (Source: Lecture Slides)" >}}
+
+The part highlighted in green ensures linearizability. Without it, client 3 would **not** read the value written by client 1, despite a quorum (because the replicas from which client 3 reads haven't received notice of the change yet).
+
+It's even possible to write a linearized compare-and-swap (CAS) operation in a DS:
+```
+on request to perform get(x) do
+  total order broadcast (get, x) and wait for delivery
+end on
+
+on request to perform CAS(x, old, new) do
+  total order broadcast (CAS, x, old, new) and wait for delivery
+end on
+
+on delivering (get, x) by total order broadcast do
+  return localState[x] as result of operation get(x)
+end on
+
+on delivering (CAS, x, old, new) by total order broadcast do
+  success := false
+  
+  if localState[x] = old then
+    localState[x] := new 
+    success := true
+  end if
+
+  return success as result of operation CAS(x, old, new)
+end on
+```
+
 ## Concept: RPC (Remote Procedure Call)
 
 RPC is a concept that leverages a DS to execute a function (or _procedure_) on a _remote_ machine. This is hidden from the caller of the function (**location transparency**).
@@ -221,10 +344,6 @@ There are, typically, two types of leases:
 2. **Write** leases (allows _one single_ writer).
 
 Servers may further forcibly **evict** clients holding a lease if required.
-
-## Concept: State Machine Replication
-
-**State Machine Replication** is an approach to make replicas fault tolerance. It builds upon the fact that **state machines** are deterministic: For a given input, a state machine will always produce a given output. Applied to a DS, it is possible to make each replica a state machine. By observing the output of each other, replicas notice when another replica becomes faulty (this is the case when the output of a replica deviates from the expected output).
 
 ## Concept: Key-Value (KV) Stores
 
