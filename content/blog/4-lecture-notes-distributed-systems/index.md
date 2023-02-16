@@ -282,7 +282,7 @@ Zookeeper requires the following **safety properties** to work properly:
 * **Agreement**: Any two processes deliver the same message. 
 * **Primary integrity**: A primary broadcasts only once it has delivered the TXs of previous epochs (for recovery).
 
-As mentioned before, a process in ZAB can be assigned two **roles**: **leader** and **follower**. To determine the current leader, ZAB uses three phases: **discovery**, **synchronization** and **broadcast**. Each process, independent of its current phase, has an internal **leader oracle** telling which process is currently supposed to be the leader (a process can reference itself here). Note that this information may not be accurate - to become a leader, all three phases have to be run through. The ZAB algorithm plays out like this:
+As mentioned before, a process in ZAB can be assigned two **roles**: **leader** and **follower**. To determine the current leader, ZAB uses three phases: **discovery**, **synchronization** and **broadcast**. Each process, independent of its current phase, has an internal **leader oracle** telling which process is currently supposed to be the leader (a process can reference itself here). Note that this information may not be accurate - to become a leader, all three phases have to be run through. Zookeeper **discovers failures** via **heartbeats**. On failure, the **discovery phase** is started with a leader election. The full ZAB algorithm plays out like this:
 
 {{< figure src="./zab-phases.png" caption="The ZAB protocol, running through the three ZAB phases." attr="Source" attrlink="https://marcoserafini.github.io/papers/zab.pdf" >}}
 
