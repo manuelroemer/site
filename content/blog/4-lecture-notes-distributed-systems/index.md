@@ -8,6 +8,8 @@ tags: ['university', 'distributed systems']
 toc: true
 ---
 
+## Summary
+
 This is a summary of the [Distributed Systems](https://web.archive.org/web/20230215161635/https://campus.tum.de/tumonline/WBMODHB.wbShowMHBReadOnly?pKnotenNr=756837) course, taken in the winter semester 2022/2023. This is only a condensed version of the topics covered in the actual lecture and, if used for studying, should therefore not be used as a replacement of the actual material.
 
 ## Abbreviations
@@ -23,6 +25,7 @@ This summary uses the following abbreviations:
 * **KV**: Key-Value
 * **RPC**: Remote Procedure Call
 * **RW**: Read-Write
+* **ZAB**: Zookeeper Atomic Broadcast
 
 ## Terminology
 
@@ -40,6 +43,11 @@ The lecture and this summary assume the following meaning behind these terms:
 * **(Un-)marshalling**: A synonym for (de-)serializing a data structure so that it can be sent over the network.
 * **Interface Definition Language (IDL)**: A format defining type signatures in a (programming) language-independent way.
 * **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
+* **Idempotence**: A function `f(x)` is _idempotent_ if `f(x) = f(f(x))`, i.e., if it can be invoked multiple times without causing duplication.  
+  In a DS, idempotence may have an influence on retry semantics:
+  * **At-most-once**: Send request _once_, don't retry. Updates are _allowed_.
+  * **At-least-once**: Send request _until acknowledged_. Updates can _be repeated_.
+  * **Exactly-once**: Request can be _retried infinitely_ because they are _idempotent_ (or deduplicated).
 
 ## Distributed Systems - Motivation
 
@@ -255,3 +263,29 @@ if (create('.../mutex', EPHEMERAL)) {
   getData('.../mutex', true)
 }
 ```
+
+### Zookeeper Atomic Broadcast (ZAB)
+
+**📄 Papers**: [1](https://marcoserafini.github.io/papers/zab.pdf)
+
+ZAB is a **crash-recovery** **atomic** **broadcast** algorithm used internally by Zookeeper. It guarantees **at-least-once** semantics (state changes are _idempotent_). Zookeeper **assumes fair-lossy links** and uses **TCP** to ensure FIFO order. Internally, Zookeeper uses a **primary-backup scheme** to maintain a consistent replica state. Here, a single **primary process** receives **all client requests** and forwards them, **in order**, to replicas via _ZAB_. The flow is depicted in the following image:
+
+{{< figure src="./zab-flow.png" caption="ZAB flow for read/write requests." >}}
+
+ZAB is used for crash recovery. When a _primary crashes_, other process first agree upon a _common state_ and then elect a _new primary_ via a _quorum_. There can only ever be _one_ active primary.
+
+State changes are called _transactions (TX)_. Each TX is identified by a tuple `(zxid, value)` , where **zxid** is another tuple `(epoch, counter)`, where `epoch` is a counter that increases whenever the primary changes and `counter` is a number that increases with each new transaction. Therefore, zxid tuples can be ordered (first by the epoch, then by the counter).
+
+Zookeeper requires the following **safety properties** to work properly:
+* **Integrity**: In order to deliver a message, a process must have received that very same message.
+* **Total order/Primary order**: If a message a is delivered before message b by a process, all other process must also deliver a before b.
+* **Agreement**: Any two processes deliver the same message. 
+* **Primary integrity**: A primary broadcasts only once it has delivered the TXs of previous epochs (for recovery).
+
+As mentioned before, a process in ZAB can be assigned two **roles**: **leader** and **follower**. To determine the current leader, ZAB uses three phases: **discovery**, **synchronization** and **broadcast**. Each process, independent of its current phase, has an internal **leader oracle** telling which process is currently supposed to be the leader (a process can reference itself here). Note that this information may not be accurate - to become a leader, all three phases have to be run through. The ZAB algorithm plays out like this:
+
+{{< figure src="./zab-phases.png" caption="The ZAB protocol, running through the three ZAB phases." attr="Source" attrlink="https://marcoserafini.github.io/papers/zab.pdf" >}}
+
+The above image shows the entire algorithm. The three phases can be explained in a more simplified manner like this:
+
+{{< figure src="./zab-phases-simplified.png" caption="The ZAB protocol, running through the three ZAB phases (simplified)." >}}
