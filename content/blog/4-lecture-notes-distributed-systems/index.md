@@ -58,6 +58,7 @@ The lecture and this summary assume the following meaning behind these terms:
 
   The inverse is a concurrent event (_a || b_).
 - **Causality**: Essentially, what _caused_ an event? An event _a_ concurrent to _b_ cannot have caused _b_. If _a_ happened before _b_, it might have.
+- **Broadcast**: Delivering a message m from one node to all others.
 - **Microkernel**: An approach to design a (operating) system. In contrast to a monolithic approach, features are not part of the kernel, but "separate modules" in user space.
 - **Idempotence**: A function `f(x)` is _idempotent_ if `f(x) = f(f(x))`, i.e., if it can be invoked multiple times without causing duplication.  
   In a DS, idempotence may have an influence on retry semantics:
@@ -122,17 +123,64 @@ The further right the option is in the table, the harder it becomes. Algorithms 
 
 ## Concept: Timing and Clocks
 
-Measuring the current time is essential to a DS, e.g., for **ordering messages**. It is, also, a very hard problem. We differentiate between two types of clocks for time measurement:
-1. **Physical clocks**: Count the number of seconds elapsed since a given point in time.
-2. **Logical clocks**: Count _events_ (e.g., number of messages sent).
-
-We can further distinguish between these clocks:
+Measuring the current time is essential to a DS, e.g., for **ordering messages**. It is, also, a very hard problem. Time is measured by clocks.
+We firstly distinguish between these clocks:
 1. **Time-of-day clock**: Time since a fixed date.
 2. **Monotonic clock**: Time since an arbitrary point in time (e.g., when a machine was started).
 
-In a DS, time must be synchronized to adjust/fix a local clock's _drift_ (deviation). Here, multiple protocols/algorithms exist.  
-One of them is the **Network Time Protocol (NTP)** which synchronizes time by sending a request to an NTP server. The server answers with its current time. That + the duration of the request and response allow the client to update its local tie.
+In a DS, clocks must be synchronized to adjust/fix a local clock's _drift_ (deviation). Here, multiple protocols/algorithms exist.  
+One of them is the **Network Time Protocol (NTP)** which synchronizes time by sending a request to an NTP server. The server answers with its current time. That + the duration of the request and response allow the client to update its local time.
 
+We can further differentiate between the following clocks:
+1. **Physical clocks**: Count the number of seconds elapsed since a given point in time.
+2. **Logical clocks**: Count _events_ (e.g., number of messages sent). Designed for capturing _causal dependencies_. Here, we look at two variants:
+   1. **Lamport clock**
+   2. **Vector clock**
+
+The **Lamport clock** uses the following algorithm. Notably, it maintains an **event counter t** internally that is incremented whenever an _event occurs_. The counter is **attached** to any **message sent**. Sending/Receiving a message is an event itself and _increases the counter_. Nodes receiving a message always **update** their internal counter to the highest known counter.
+```
+on initialisation do
+  t := 0 // each node has its own local variable t
+end on
+
+on any event occurring at the local node do
+  t := t + 1
+end on
+
+on request to send message m do
+  t := t + 1
+  send (t, m) via the underlying network link
+end on
+
+on receiving (t', m) via the underlying network link do
+  t := max(t, t') + 1
+  deliver m to the application
+end on
+```
+
+A **Vector clock**, on the other hand, maintains a **counter for every node** inside a _vector_ (array). The entire vector is delivered with a message:
+```
+on initialisation at node i do
+  T := (0, 0, ... , 0) // local variable at node N i
+end on
+
+on any event occurring at node i do
+  T[i] := T[i] + 1
+end on
+
+on request to send message m at node i do
+  T[i] := T [i] + 1
+  send (T, m) via network
+end on
+
+on receiving (T', m) at node i via the network do
+  T[j] := max(T[j], T'[j]) for every j in {1, ... , n}
+  T[i] := T[i] + 1 
+  deliver m to the application
+end on
+```
+
+Vector clocks, in contrast to Lamport clocks, provide information about causality, i.e., which event may have caused another.
 
 ## Concept: RPC (Remote Procedure Call)
 
