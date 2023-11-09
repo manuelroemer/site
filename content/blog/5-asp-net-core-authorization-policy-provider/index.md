@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2023-11-09T14:23:17+01:00
 lastmod: null
 title: "Complex Authorization Policy Setups Using ASP.NET Core's IAuthorizationPolicyProvider"
