@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2023-12-03T14:27:14+01:00
 lastmod: null
 title: "Partial Attribute Selectors"

@@ -1,5 +1,4 @@
 ---
-draft: true
 date: 2023-12-03T14:52:35+01:00
 lastmod: null
 title: "Case-Insensitive Attribute Selectors"
