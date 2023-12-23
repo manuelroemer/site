@@ -1,7 +1,7 @@
 ---
 date: 2022-12-20T11:04:27+01:00
 lastmod: null
-title: "Ofengemüse"
+title: 'Ofengemüse'
 description: null
 summary: 'Ofengemüse auf dem Blech.'
 ---

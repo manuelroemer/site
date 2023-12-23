@@ -1,7 +1,7 @@
 ---
 date: 2022-12-20T12:14:03+01:00
 lastmod: null
-title: "Kichererbsen Curry"
+title: 'Kichererbsen Curry'
 description: null
 summary: 'Vegetarisches Curry mit Kichererbsen und Kokos-/Tomatengeschmack.'
 ---
@@ -27,7 +27,7 @@ Vegetarisches Curry mit Kichererbsen und Kokos-/Tomatengeschmack.
 - Zitrone (1 EL max.)
 - Essig (1 TL max.)
 - Brauner Zucker
-- *Optional:* Brot als Beilage (z.B. Fladen-, oder Naanbrot)
+- _Optional:_ Brot als Beilage (z.B. Fladen-, oder Naanbrot)
 
 ## Zubereitung
 

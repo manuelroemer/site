@@ -1,7 +1,7 @@
 ---
 date: 2022-12-20T11:17:09+01:00
 lastmod: null
-title: "Currysalat"
+title: 'Currysalat'
 description: null
 summary: 'Ein Currysalat mit Reis und Huhn.'
 ---
@@ -21,9 +21,9 @@ Ein Currysalat mit Reis und Hahn.
 - Currypulver
 - Salz
 - Pfeffer
-- *Optional:* Lorbeerblatt
-- *Optional:* Sternanis
-- *Optional:* Gewürznelken
+- _Optional:_ Lorbeerblatt
+- _Optional:_ Sternanis
+- _Optional:_ Gewürznelken
 
 ## Zubereitung
 

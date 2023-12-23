@@ -7,12 +7,12 @@ description: null
 summary: null
 ---
 
-*Description.*
+_Description._
 
 ## Zutaten
 
-*Zutaten.*
+_Zutaten._
 
 ## Zubereitung
 
-*Zubereitung.*
+_Zubereitung._

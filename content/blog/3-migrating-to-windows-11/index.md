@@ -105,9 +105,9 @@ and got my "old" context menu back, accessible with one single right-click:
 Windows 11 does come with some preinstalled apps, like TikTok or Instagram.
 I have no need for those and directly uninstalled them.
 One weird thing that I encountered here is that, for some reason, some of those apps are automagically
-being reinstalled *once*.
+being reinstalled _once_.
 I suspect that this is some kind of bug?
-In any case, uninstalling them *again*, so far, kept them gone for good.
+In any case, uninstalling them _again_, so far, kept them gone for good.
 
 ### Installing Applications
 

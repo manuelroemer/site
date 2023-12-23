@@ -1,7 +1,7 @@
 ---
 date: 2022-12-13T16:42:24+01:00
 lastmod: null
-title: "Guacamole"
+title: 'Guacamole'
 description: null
 summary: 'Eine einfache Guacamole, ideal als Beilage oder Dip für andere Gerichte.'
 ---

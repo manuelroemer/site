@@ -40,7 +40,7 @@ auch die Gemüsefüllung in einem Wrap).
 - 500g Rinderhackfleisch
 - Salz
 - Pfeffer
-- *Optional:* Gewürzmischung
+- _Optional:_ Gewürzmischung
 
 ### Hähnchenfüllung
 
@@ -49,7 +49,7 @@ auch die Gemüsefüllung in einem Wrap).
 - ~500-800g Hühnerfleisch [^2]
 - Salz
 - Pfeffer
-- *Optional:* Gewürzmischung (z.B. Chimichurri)
+- _Optional:_ Gewürzmischung (z.B. Chimichurri)
 
 ### Gemüsefüllung
 
@@ -80,9 +80,8 @@ auch die Gemüsefüllung in einem Wrap).
 5. **Für die Gemüsefüllung:**
    1. Das geschnittene Gemüse mit Pflanzenöl in einer Pfanne anbraten.
    2. Mit Salz, Pfeffer und Gewürzen abschmecken.
-7. Die Tortillawraps kurz im Ofen anwärmen, damit sie knusprig werden.
-6. Alle Komponenten (Fleisch, Gemüse, Reis, ...) einzeln servieren (z.B. in Schüsseln).
-
+6. Die Tortillawraps kurz im Ofen anwärmen, damit sie knusprig werden.
+7. Alle Komponenten (Fleisch, Gemüse, Reis, ...) einzeln servieren (z.B. in Schüsseln).
 
 [^1]: Reissorte nach persönlicher Präferenz, z.B. Basmati- oder Langkornreis.
 [^2]: Beispielsweise Hähnchenbrustfilet. Alternativ auch andere Stücke oder sogar Putenfleisch.

@@ -14,8 +14,8 @@ Eine einfache Sour Cream, ideal als Beilage oder Dip für andere Gerichte.
 - 1 Knoblauchzehe
 - Salz
 - Pfeffer
-- *Optional:* 1-2 TL Zitronensaft
-- *Optional:* Kräuter (Petersilie, Schnittlauch, Dill, ...), geschnitten
+- _Optional:_ 1-2 TL Zitronensaft
+- _Optional:_ Kräuter (Petersilie, Schnittlauch, Dill, ...), geschnitten
 
 ## Zubereitung
 
@@ -23,5 +23,5 @@ Eine einfache Sour Cream, ideal als Beilage oder Dip für andere Gerichte.
 2. Die Saure Sahne in eine Schüssel geben.
 3. Knoblauch hinzufügen.
 4. Salz und Pfeffer hinzufügen. Menge abschmecken.
-5. *Optional:* Zitronensaft und Kräuter hinzugeben.
+5. _Optional:_ Zitronensaft und Kräuter hinzugeben.
 6. Verrühren und abschmecken.

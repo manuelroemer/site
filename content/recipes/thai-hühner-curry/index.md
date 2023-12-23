@@ -1,7 +1,7 @@
 ---
 date: 2022-12-20T11:39:29+01:00
 lastmod: null
-title: "Thai Hühner Curry"
+title: 'Thai Hühner Curry'
 description: null
 summary: 'Curry mit Hähnchenbrustfilet, Erdnuss- und Kokossoße.'
 ---
@@ -27,7 +27,6 @@ Curry mit Hähnchenbrustfilet, Erdnuss- und Kokossoße.
 - Salz
 - Pfeffer
 - Brauner Zucker
-
 
 ## Zubereitung
 

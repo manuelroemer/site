@@ -32,7 +32,7 @@ public sealed class MyPolicyProvider : IAuthorizationPolicyProvider
     {
         _db = db;
     }
-    
+
     public async Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
     {
         if (policyName == "CanEditContent")
@@ -44,7 +44,7 @@ public sealed class MyPolicyProvider : IAuthorizationPolicyProvider
             AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
                 .RequireRole(roles)
                 .Build();
-            
+
             return policy;
         }
 
@@ -120,7 +120,7 @@ This code fragment is fully functional - it builds the custom `CanEditContent` p
 
 `IAuthorizationPolicyProvider` is powerful. Apart from being able to asynchronously create policies, it can also be used to dynamically create parametrized authorization policies.
 
-For example, let's assume that we want to build a policy provider which, given the policy name `Roles:Admin,User`,  creates a policy that requires the user to have either the `Admin` or the `User` role. Or, more generically, we want a custom `IAuthorizationPolicyProvider` which takes a policy name starting with `Roles:` and creates a policy which requires the user to have all roles specified after the colon[^1]. This can easily be achieved like this:
+For example, let's assume that we want to build a policy provider which, given the policy name `Roles:Admin,User`, creates a policy that requires the user to have either the `Admin` or the `User` role. Or, more generically, we want a custom `IAuthorizationPolicyProvider` which takes a policy name starting with `Roles:` and creates a policy which requires the user to have all roles specified after the colon[^1]. This can easily be achieved like this:
 
 ```cs
 public Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)

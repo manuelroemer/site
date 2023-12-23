@@ -54,11 +54,13 @@ The lecture and this summary assume the following meaning behind these terms:
 - **(Un-)marshalling**: A synonym for (de-)serializing a data structure so that it can be sent over the network.
 - **Interface Definition Language (IDL)**: A format defining type signatures in a (programming) language-independent way.
 - **Happens-Before Relation**: An event _a_ _happens before_ an event _b_ if:
+
   - _a_ and _b_ occur at the same node _and_ _a_ occured before _b_.
   - _a_ is the sending of a message and _b_ is the receiving of that message.
   - an event _c_ exists where _a_ -> _c_ and _c_ -> _b_.
 
   The inverse is a concurrent event (_a || b_).
+
 - **Causality**: Essentially, what _caused_ an event? An event _a_ concurrent to _b_ cannot have caused _b_. If _a_ happened before _b_, it might have.
 - **Quorum**: A majority of entities (here, nodes) confirms an operation. Typically `(n + 1) / 2`. Failure to reach quorum indicates an issue.
 - **Local-first Software**: Software, where a local device is a fully-functional replica and servers are just for backup.
@@ -103,12 +105,13 @@ In summary, a DS might overcome typical challenges that would otherwise occur wi
 Assuming a bi-directional point-to-point communication between two nodes, the following system model can be derived:
 
 | Part        | Option 1    | Option 2              | Option 3     |
-| ---         | ---         | ---                   | ---          |
+| ----------- | ----------- | --------------------- | ------------ |
 | **Network** | reliable    | fair-loss             | arbitrary    |
 | **Nodes**   | crash-stop  | crash-recovery        | byzantine    |
 | **Timing**  | synchronous | partially synchronous | asynchronous |
 
 The options have the following meaning:
+
 - **Network**:
   - **reliable**: A message is received if, and only if, it is sent.
   - **fair-loss**: Messages may be lost, deduplicated or reordered. If retrying long enough, it will eventually get through.
@@ -128,6 +131,7 @@ The further right the option is in the table, the harder it becomes. Algorithms 
 
 Measuring the current time is essential to a DS, e.g., for **ordering messages**. It is, also, a very hard problem. Time is measured by clocks.
 We firstly distinguish between these clocks:
+
 1. **Time-of-day clock**: Time since a fixed date.
 2. **Monotonic clock**: Time since an arbitrary point in time (e.g., when a machine was started).
 
@@ -135,12 +139,14 @@ In a DS, clocks must be synchronized to adjust/fix a local clock's _drift_ (devi
 One of them is the **Network Time Protocol (NTP)** which synchronizes time by sending a request to an NTP server. The server answers with its current time. That + the duration of the request and response allow the client to update its local time.
 
 We can further differentiate between the following clocks:
+
 1. **Physical clocks**: Count the number of seconds elapsed since a given point in time.
 2. **Logical clocks**: Count _events_ (e.g., number of messages sent). Designed for capturing _causal dependencies_. Here, we look at two variants:
    1. **Lamport clock**
    2. **Vector clock**
 
 The **Lamport clock** uses the following algorithm. Notably, it maintains an **event counter t** internally that is incremented whenever an _event occurs_. The counter is **attached** to any **message sent**. Sending/Receiving a message is an event itself and _increases the counter_. Nodes receiving a message always **update** their internal counter to the highest known counter.
+
 ```
 on initialisation do
   t := 0 // each node has its own local variable t
@@ -162,6 +168,7 @@ end on
 ```
 
 A **Vector clock**, on the other hand, maintains a **counter for every node** inside a _vector_ (array). The entire vector is delivered with a message:
+
 ```
 on initialisation at node i do
   T := (0, 0, ... , 0) // local variable at node N i
@@ -178,7 +185,7 @@ end on
 
 on receiving (T', m) at node i via the network do
   T[j] := max(T[j], T'[j]) for every j in {1, ... , n}
-  T[i] := T[i] + 1 
+  T[i] := T[i] + 1
   deliver m to the application
 end on
 ```
@@ -190,6 +197,7 @@ Vector clocks, in contrast to Lamport clocks, provide information about causalit
 Broadcasting means delivering a message from one node to all others. Broadcasts build upon [System Models](#concept-system-models). A broadcast can be **best-effort** (may drop messages), **reliable** (non-faulty nodes deliver every message, via retries) with either an **asynchronous** or **partially synchronous** timing model.
 
 The following _reliable broadcasts_ were presented:
+
 - **FIFO broadcast**: If one node delivers _m1_ and _m2_ and _broadcast(m1)_ happens before _broadcast(m2)_, then _m1_ must be delivered before _m2_.  
   FIFO broadcast can easily be implemented via TCP.
 - **Causal broadcast**: If _broadcast(m1)_ happens before _broadcast(m2)_, then _m1_ must be delivered before _m2_.
@@ -199,32 +207,7 @@ The following _reliable broadcasts_ were presented:
 - **FIFO total order broadcast**: FIFO + total order broadcast.
 
 **FIFO broadcast algorithm**:
-```
-on initialisation do
-  sendSeq := 0
-  delivered := (0, ..., 0)
-  buffer := {}
-end on
 
-on request to broadcast m at node i do
-  deps := delivered 
-  deps[i] := sendSeq
-  send (i, deps, m) via reliable broadcast
-  sendSeq := sendSeq + 1
-end on
-
-on receiving msg from reliable broadcast at node i do
-  buffer := buffer ∪ {msg}
-  
-  while ∃(sender, deps, m) 2 buffer.deps <= delivered do
-    deliver m to the application
-    buffer := buffer \ {(sender, deps, m)}
-    delivered[sender] := delivered[sender] + 1
-  end while
-end on
-```
-
-**Causal broadcast algorithm**:
 ```
 on initialisation do
   sendSeq := 0
@@ -241,7 +224,34 @@ end on
 
 on receiving msg from reliable broadcast at node i do
   buffer := buffer ∪ {msg}
-  
+
+  while ∃(sender, deps, m) 2 buffer.deps <= delivered do
+    deliver m to the application
+    buffer := buffer \ {(sender, deps, m)}
+    delivered[sender] := delivered[sender] + 1
+  end while
+end on
+```
+
+**Causal broadcast algorithm**:
+
+```
+on initialisation do
+  sendSeq := 0
+  delivered := (0, ..., 0)
+  buffer := {}
+end on
+
+on request to broadcast m at node i do
+  deps := delivered
+  deps[i] := sendSeq
+  send (i, deps, m) via reliable broadcast
+  sendSeq := sendSeq + 1
+end on
+
+on receiving msg from reliable broadcast at node i do
+  buffer := buffer ∪ {msg}
+
   while ∃(sender, deps, m) ∈ buffer.deps <= delivered do
     deliver m to the application
     buffer := buffer \ {(sender, deps, m)}
@@ -280,6 +290,7 @@ Linearizability is not present by default, but can, in many cases, be achieved v
 The part highlighted in green ensures linearizability. Without it, client 3 would **not** read the value written by client 1, despite a quorum (because the replicas from which client 3 reads haven't received notice of the change yet).
 
 It's even possible to write a linearized compare-and-swap (CAS) operation in a DS:
+
 ```
 on request to perform get(x) do
   total order broadcast (get, x) and wait for delivery
@@ -295,9 +306,9 @@ end on
 
 on delivering (CAS, x, old, new) by total order broadcast do
   success := false
-  
+
   if localState[x] = old then
-    localState[x] := new 
+    localState[x] := new
     success := true
   end if
 
@@ -338,7 +349,7 @@ end on
 on node nodeId suspects leader has failed, or on election timeout do
   currentTerm := currentTerm + 1
   currentRole := candidate
-  votedFor := nodeId 
+  votedFor := nodeId
   votesReceived := {nodeId }
   lastTerm := 0
 
@@ -363,7 +374,7 @@ on receiving (VoteRequest, cId, cTerm, cLogLength, cLogTerm) at node nodeId do
   end if
 
   lastTerm := 0
-  
+
   if log.length > 0 then
     lastTerm := log[log.length - 1].term
   endif
@@ -382,7 +393,7 @@ end on
 on receiving (VoteResponse, voterId, term, granted) at nodeId do
   if currentRole = candidate && term = currentTerm && granted then
     votesReceived := votesReceived union {voterId}
-  
+
     // Quorum reached?
     if |votesReceived| >= ceil((|nodes| + 1) / 2) then
       currentRole := leader
@@ -526,8 +537,9 @@ end function
 
 While [Linearizability](#concept-linearizability) is a strong model, it has disadvantages in the form of _performance_, _scalability_ and _availability_. Sometimes, weaker models are enough for a DS. One such model is **eventual consistency**. It states that **if there are no more updates**, then all replicas will **eventually** be in the same state.  
 **Strong eventual consistency** improves on the "no more updates" part via the following points:
+
 - **Eventual delivery**: Every update made to _one_ non-faulty replica is eventually processed by _every_ non-faulty replica.
-- **Convergence**: Any replicas which have processed the _same updates_ are in the _same state_. 
+- **Convergence**: Any replicas which have processed the _same updates_ are in the _same state_.
 
 ## Concept: RPC (Remote Procedure Call)
 
@@ -895,6 +907,7 @@ Spanner is a _globally-distributed, scalable, multi-version_ DB developed by Goo
 Spanner thus "competes" with [BigTable](#case-study-googles-bigtable), though they solve different goals: BigTable has _weak semantics_ (specifically, no transaction support beyond one row), while Spanner provides _strong semantics_ (distributed multi-row transactions).
 
 Spanner builds upon the following techniques to achieve its goal:
+
 - State Machine Replication within a shard (via Paxos)
 - 2PL for serialization
 - 2PC for distributed transactions

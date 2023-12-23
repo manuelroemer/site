@@ -77,7 +77,7 @@ It will be my very own website.
 ### Pico.css
 
 The problem with building your own website is that a website, typically, needs some kind of design.
-And while I do consider myself good at *judging* designs, I did not at all feel motivated to come
+And while I do consider myself good at _judging_ designs, I did not at all feel motivated to come
 up with my own one for this project.
 I also knew that I would already have to spend a big amount of my available time on learning Hugo
 in order to quickly come up with a good result.
@@ -93,10 +93,10 @@ Each HTML tag has a default style - and that is it.
 While I do believe that this approach will not work out well for "larger" sites, it is a very good
 choice for this one for the following reasons:
 
-* It allows to me to have a good-looking design without putting in any effort.
-* Not having to apply any CSS classes in the code means that, if I later want to use another
+- It allows to me to have a good-looking design without putting in any effort.
+- Not having to apply any CSS classes in the code means that, if I later want to use another
   design, I won't have to do a lot of cleanup. Removing the stylesheet will be enough.
-* In order to correctly style the site, I must use semantic HTML (which is always a good thing).
+- In order to correctly style the site, I must use semantic HTML (which is always a good thing).
 
 One thing to note is that, while Pico does a lot of heavy lifting, I still had to write
 [custom CSS](https://github.com/manuelroemer/site/blob/550b5354aae683f39b84f76a0f7bbe99a8b0f42c/static/css/global.css)
@@ -114,7 +114,7 @@ After all, having more dependencies typically implies more maintenance - a non-g
 However, there is one thing that I don't want to live without anymore when working with code: Formatters.
 In the web space, Prettier has become my go-to formatter of choice and, if possible, I wanted to have
 it integrated into the repository.
-It turns out that it *is* possible.
+It turns out that it _is_ possible.
 The only requirement for it to work with Hugo's templating format is a plugin:
 [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template).
 
@@ -197,13 +197,13 @@ It is cheap, it was built relatively quickly, and it will certainly be easy to m
 to the absence of major dependencies (apart, of course, from Hugo itself).
 
 As it can be seen from this post, it is totally possible for me to write blog posts (I will only
-have to *actually* do it) and other content like my [favorite recipes](https://manuelroemer.com/recipes/)
+have to _actually_ do it) and other content like my [favorite recipes](https://manuelroemer.com/recipes/)
 (only available in german for now 😞).
 
 With that being said, there is still a lot that can be done.
 At some point in the future.
 Hopefully.
-For one, I *would* like to create a custom design for this site.
+For one, I _would_ like to create a custom design for this site.
 Pico is a good choice for now, but in the long run, it is a framework that I'd like to see replaced
 with a custom solution.
 There are also a lot of smaller things that I would like change - starting with a more appealing

@@ -1,9 +1,9 @@
 ---
 date: 2022-12-30T20:37:24+01:00
 lastmod: null
-title: "Tiramisu"
+title: 'Tiramisu'
 description: null
-summary: "Ein Rezept für Tiramisu ohne Ei."
+summary: 'Ein Rezept für Tiramisu ohne Ei.'
 ---
 
 Ein Rezept für Tiramisu ohne Ei.
@@ -11,7 +11,7 @@ Ein Rezept für Tiramisu ohne Ei.
 ## Zutaten
 
 - 40 Löffelbiskuits
-- ~1 Suppenteller Kaffee (vorzugsweise Espresso) 
+- ~1 Suppenteller Kaffee (vorzugsweise Espresso)
 - 500g Mascarpone
 - 600ml Sahne
 - 1 Pkg. Vanillezucker

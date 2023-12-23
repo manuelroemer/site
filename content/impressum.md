@@ -48,7 +48,7 @@ Apianweg, 14
 
 ### Contact
 
-**Phone:** 𝟢𝟪𝟩𝟨𝟣 𝟩𝟤𝟦𝟪𝟣𝟨    
+**Phone:** 𝟢𝟪𝟩𝟨𝟣 𝟩𝟤𝟦𝟪𝟣𝟨  
 **E-mail:** hello@manuelroemer.com
 
 ### Person responsible for editorial

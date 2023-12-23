@@ -1,9 +1,9 @@
 ---
 date: 2023-01-05T14:02:23+01:00
 lastmod: null
-title: "Pizza Grundteig"
+title: 'Pizza Grundteig'
 description: null
-summary: "Ein Pizzateig für 2 Standardbleche."
+summary: 'Ein Pizzateig für 2 Standardbleche.'
 ---
 
 Ein Pizzateig für 2 Standardbleche.
