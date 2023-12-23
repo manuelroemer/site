@@ -23,10 +23,24 @@
 
 
     <link rel="stylesheet" href="{{ "css/pico.min.css" | relURL }}" />
-    <link rel="stylesheet" href="{{ "css/global.css" | relURL }}" />
+    <link rel="stylesheet" href="{{ "/css/global.css" | relURL }}" />
     {{ range .AlternativeOutputFormats }}
       {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end }}
+
+
+    <!--
+    MathJax integration. MathJax is served locally. See the Hugo config's `module` section for details.
+    This site uses a custom config to ensure better Markdown compatibility, i.e., to allow inline math via `$ ... $` tags.
+    -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+        },
+      };
+    </script>
+    <script async src="{{ "/mathjax/tex-chtml.js" | relURL }}"></script>
   </head>
   <body>
     {{ block "main" . }}

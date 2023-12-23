@@ -9,8 +9,7 @@ To get the repository running locally, you must first install Hugo.
 Follow Hugo's [Getting Started guide](https://gohugo.io/getting-started/) for setting up Hugo
 locally.
 
-While not technically required to get the site running, the repository is using
-[NPM](https://www.npmjs.com/) for running tasks and for formatting.
+The repository uses [NPM](https://www.npmjs.com/) for managing dependencies and running tasks.
 With NPM installed, you can install the repository's dependencies via:
 
 ```sh

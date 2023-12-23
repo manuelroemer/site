@@ -86,3 +86,14 @@ minify:
   tdewolff:
     html:
       keepComments: true
+
+# Module mounts. See: https://gohugo.io/hugo-modules/configuration/#module-configuration-mounts
+# Used here to include prebuilt scripts from NPM.
+module:
+  mounts:
+    - source: 'static'
+      target: 'static'
+    - source: 'node_modules/@picocss/pico/css/pico.min.css'
+      target: 'static/css/pico.min.css'
+    - source: 'node_modules/mathjax/es5'
+      target: 'static/mathjax'

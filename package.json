@@ -7,6 +7,10 @@
     "build": "hugo --minify",
     "format": "prettier -w ."
   },
+  "dependencies": {
+    "@picocss/pico": "1.5.10",
+    "mathjax": "3.2.2"
+  },
   "devDependencies": {
     "prettier": "2.8.0",
     "prettier-plugin-go-template": "0.0.13"
